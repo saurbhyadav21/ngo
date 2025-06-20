@@ -18,9 +18,9 @@
         href='https://cdn-uicons.flaticon.com/3.0.0/uicons-solid-straight/css/uicons-solid-straight.css'>
     <!-- <link rel="stylesheet" href="http://127.0.0.1:8000/template/color.css"> -->
     <link rel="stylesheet" href="{{ asset('template/color.css') }}">
-    <!-- <link rel="stylesheet" href="{{ asset('template/style.css') }}"> -->
+    <link rel="stylesheet" href="{{ asset('template/style.css') }}">
 
-    <link rel="stylesheet" href="http://127.0.0.1:8000/template/style.css">
+    <!-- <link rel="stylesheet" href="http://127.0.0.1:8000/template/style.css"> -->
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
