@@ -84,11 +84,13 @@ a{
     
      <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
       <div class="card shadow rounded h-100 tall-box">
-        <a href="">
+        <a href="{{ route('contact-list') }}">
         <div class="card-body">
           <h5 class="card-title d-flex justify-content-between align-items-center">Contact Us
             <img src="{{ asset('images/contact.png') }}" alt="View" style="height:40px;">  
           </h5>
+            <h6 class="text-primary">Total: {{ $contactList }}</h6>
+
           <p class="card-text">This is a responsive box number 5.</p>
         </div>
         </a>

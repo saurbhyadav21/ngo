@@ -35,7 +35,7 @@ div.dataTables_wrapper {
 
     </style>
     <h2 style="display: inline-block; margin: 10px; font-family: 'Times New Roman', Times, serif;">
-    User List
+   Unverified User List
 </h2>
 
   <div style="overflow-x:auto;">

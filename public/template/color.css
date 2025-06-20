@@ -1,0 +1,36 @@
+.insta-bg {
+    background: linear-gradient(45deg, #feda75, #fa7e1e, #d62976, #962fbf, #4f5bd5);
+}
+.facebook-bg {
+    background: #3B5998;
+}
+.twitter-bg {
+    background: #000;
+}
+.youtube-bg {
+    background: #DD4B39;
+}
+
+.main-col{
+    color: rgb(35, 130, 3);
+}
+.main {
+    background: linear-gradient(122deg, rgba(0, 146, 69, 1) 0%, rgba(135, 190, 65, 1) 100%);
+    color: #496408;        
+    background-color: #442b05; 
+}
+
+.Objective h2{
+    color: #496408;
+}
+.latest-activity h1{
+    color: #496408;
+}
+.required-field::after {
+  content: "*";
+  color: red;
+  margin-left:2px
+}
+.allPurpose{
+    color: #5f9e2b;
+}

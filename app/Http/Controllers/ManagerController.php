@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 use Yajra\DataTables\Facades\DataTables;
 
 class ManagerController extends Controller
@@ -77,7 +78,7 @@ class ManagerController extends Controller
     return datatables()->of($query)
         ->addColumn('action', function ($row) {
             
-            $btn = '<a href="'.route('doner-details', ['id' => $row->id]).'" class="btn" style="margin-right:5px;">
+            $btn = '<a href="'.route('manager-doner-details', ['id' => $row->id]).'" class="btn" style="margin-right:5px;">
             <img src="'.asset('images/view.png').'" alt="View" style="height:30px;">
         </a>';
     $btn .= '<a href="'.route('doner-print', ['id' => $row->id]).'" target="_blank" class="btn">
@@ -101,7 +102,7 @@ class ManagerController extends Controller
             return DataTables::of($data)
                 ->addIndexColumn()
                 ->addColumn('action', function($row){
-                      $btn = '<a href="'.route('coordinator-details', ['id' => $row->id, 'type' => 'pending']).'" class="btn" style="margin-right:5px;">
+                      $btn = '<a href="'.route('manager-user-details', ['id' => $row->id, 'type' => 'pending']).'" class="btn" style="margin-right:5px;">
                         <img src="'.asset('images/view.png').'" alt="View" style="height:30px;">
                     </a>';
                   
@@ -143,4 +144,50 @@ class ManagerController extends Controller
 
     return response()->json(['success'=> 'Customer Deleted Successfully']);
    }
+
+   public function managerDonerDetails($id){
+
+        $doner=DB::table('donation')->where('id',$id)->first();
+    return view('manager.donor-details', compact('doner'));
+   }
+
+   public function donorStatusUpdate(Request $request){
+        $user = DB::table('donation')->where('id', $request->id)->first();
+
+        // dd($user);
+if (!$user) {
+    // Handle not found case manually
+    return response()->json(['success' => false, 'message' => 'User not found']);
 }
+
+      $updated = DB::table('donation')
+                ->where('id', $request->id)
+                ->update(['status' => $request->status]);
+
+    return response()->json([
+        'success' => true,
+        'message' => 'Status updated successfully.',
+        'new_status' => $request->status
+    ]);
+   }
+
+   public function deleteDoner($id){
+ 
+
+      $doner = DB::table('donation')->where('id', $id)->first();
+
+    if ($doner) {
+        // Step 2: Delete the image file if it exists
+        if (!empty($doner->image) && Storage::disk('public')->exists('uploads/' . $doner->image)) {
+            Storage::disk('public')->delete('uploads/' . $doner->image);
+        }
+
+        // Step 3: Delete the database record
+        DB::table('donation')->where('id', $id)->delete();
+
+        return response()->json(['success' => 'Doner and image deleted successfully.']);
+    }
+
+    return response()->json(['error' => 'Doner not found.'], 404);
+}
+  }

@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Storage;
 use Yajra\DataTables\Facades\DataTables;
 
 use Excel;
+use Illuminate\Support\Facades\Auth;
 use Maatwebsite\Excel\Facades\Excel as FacadesExcel;
 use PDF;
 
@@ -26,6 +27,93 @@ class AdminController extends Controller
         
         return view('admin.unvarified-user');
         // dd('ff');
+    }
+
+    public function addMember(){
+        return view('admin.add-user');
+    }
+
+    public function updateMember(Request $request){
+        $request->validate([
+        'name' => 'required|string',
+        'email' => 'required|email',
+        'gender' => 'required|string',
+        'phone' => 'required|string',
+        'profession' => 'required|string',
+        'dob' => 'required|date|before:today',
+        'blood_group' => 'required|string',
+        'state' => 'required|string',
+        'city' => 'required|string',
+        'address' => 'required|string',
+        'aadhar_number' => 'required|string',
+        // 'validity_start'=>'nullable|string',
+        // 'validity_end'=>'nullable|string',
+        // 'Authority'=>'required|string',
+        'pincode' => 'required|string',
+        'sdw_type' => 'required|string',
+        'sdw_name' => 'required|string',
+        'id_type' => 'nullable|string',
+        'id_file' => 'nullable|file|mimes:jpg,jpeg,png,pdf',
+        'image' => 'nullable|file|mimes:jpg,jpeg,png,pdf',
+        'other_document' => 'nullable|file|mimes:jpg,jpeg,png,pdf',
+        // 'remarks' => 'required|string',
+    ]);
+
+    // File uploads
+    $profile_image = null;
+    $id_image = null;
+    $other_document = null;
+
+    if ($request->hasFile('image')) {
+        $image = $request->file('image'); 
+        $profile_image = time().'_profile_image.'.$image->getClientOriginalExtension(); 
+        $image->storeAs('uploads', $profile_image, 'public'); 
+    }
+
+    if ($request->hasFile('id_file')) {
+        $image = $request->file('id_file'); 
+        $id_image = time().'_id_image.'.$image->getClientOriginalExtension(); 
+        $image->storeAs('uploads', $id_image, 'public'); 
+    }
+
+    if ($request->hasFile('other_document')) {
+        $image = $request->file('other_document'); 
+        $other_document = time().'_other_document.'.$image->getClientOriginalExtension(); 
+        $image->storeAs('uploads', $other_document, 'public'); 
+    }
+
+   
+
+    // Insert into DB
+    DB::table('customers')->insert([
+        'name' => $request->name,
+        'email' => $request->email,
+        'gender' => $request->gender,
+        'mobile_number' => $request->phone,
+        'profession' => $request->profession,
+        'dob' => $request->dob,
+        'blood_group' => $request->blood_group,
+        'state' => $request->state,
+        'district' => $request->city,
+        'address' => $request->address,
+        'pin_code' => $request->pincode,
+        'aadhar_number' => $request->aadhar_number,
+        // 'validity_start' => $request->validity_start,
+        // 'validity_end' => $request->validity_end,
+        // 'authority' => $request->authority,
+        'relation_type' => $request->sdw_type,
+        'relation_name' => $request->sdw_name,
+        'id_type' => $request->id_type,
+        'id_image' => $id_image,
+        'profile_image' => $profile_image,
+        'other_document' => $other_document,
+        // 'remarks' => $request->remarks,
+        'registered_by' => 'admin',
+         
+        'created_at' => now()
+    ]);
+
+    return redirect()->back()->with('success', 'Member added successfully!');
     }
 
     //activity
@@ -193,21 +281,21 @@ public function deleteAboutUsPost($id)
     public function storeObjective(Request $request){
          $validate=$request->validate([
 
-            'project_image'=>'required|image|mimes:jpg,png,jpeg',
+            'objective_image'=>'required|image|mimes:jpg,png,jpeg',
             'title'=>'required|string',
             'description'=>'required|string',
             
     ]);
 
-    if ($request->hasFile('project_image')) {
-                $image = $request->file('project_image'); 
+    if ($request->hasFile('objective_image')) {
+                $image = $request->file('objective_image'); 
                 $image_name = time().'_objective_image.'.$image->getClientOriginalExtension(); 
                 $image->storeAs('uploads', $image_name, 'public'); 
 
                 }
 $plainDescription = strip_tags($validate['description']);
                 DB::table('objectives')->insert([
-                    'project_image'=>$image_name,
+                    'objective_image'=>$image_name,
                     'title'=>$request->title,
                     'description'=>$plainDescription,
                    
@@ -233,10 +321,10 @@ public function updateObjective(Request $request, $id)
         return redirect()->back()->with('error', 'Objective not found.');
     }
 
-    $image_name = $objective->project_image; // default to old image
+    $image_name = $objective->objective_image; // default to old image
 
     if ($request->hasFile('objective_image')) {
-        $oldPath = 'uploads/' . $objective->project_image;
+        $oldPath = 'uploads/' . $objective->objective_image;
 
         // ✅ Check if file exists, then delete it
         if (!empty($objective->project_image) && Storage::disk('public')->exists($oldPath)) {
@@ -866,7 +954,7 @@ public function storeCoordinator(Request $request){
     'city'=> $validate['city'],
     'address'  => $validate['address'],
     'image'    => $imageName,
-        
+        'created_at'=>now()
     
 ]);
     return redirect()->back()->with('success', 'coordinator Created successfully');
@@ -2111,6 +2199,7 @@ public function storeEditManager(Request $request,$id){
 
 
 
+
 public function donerDetails(Request $request,$id){
 
     $doner=DB::table('donation')->where('id',$id)->first();
@@ -2263,4 +2352,302 @@ public function deleteTestimonials($id)
     return response()->json(['error' => 'Testimonial not found.'], 404);
 }
 
+
+
+
+
+
+//coordinator report 
+
+public function coordinatorReport(){
+    $coordinators = DB::table('coordinators')->get();
+    return view('admin.coordinator-report', compact('coordinators'));
 }
+
+public function getCoordinatorData($id)
+{
+    $coordinator = DB::table('coordinators')->where('id', $id)->first();
+
+    $customersCount = DB::table('customers')->where('coordinator_id', $id)->count();
+
+    return response()->json([
+        'coordinator' => $coordinator,
+        'customers_count' => $customersCount,
+    ]);
+}
+
+public function updateUserCoordinator(Request $request)
+{
+   
+//    dd($request);
+    $request->validate([
+        'image' => 'nullable|image|mimes:jpg,jpeg,png',
+        'id_file' => 'nullable|mimes:jpg,jpeg,png,pdf',
+        'other_document' => 'nullable|mimes:jpg,jpeg,png,pdf',
+    ]);
+
+    $customer = DB::table('customers')->where('id', $request->id)->first();
+
+    $profileImage = $customer->profile_image;
+    $idImage = $customer->id_image;
+    $otherDocument = $customer->other_document;
+
+    // Handle profile image
+    // dd($request->hasFile('image'));
+    if ($request->hasFile('image')) {
+        // dd('x');
+        if (!empty($profileImage)) {
+            Storage::disk('public')->delete('uploads/' . $profileImage);
+            
+        }
+        $file = $request->file('image');
+        $profileImage = time() . '_profile_' . $file->getClientOriginalName();
+        $file->storeAs('uploads', $profileImage, 'public');
+        
+    }
+// dd($profileImage);
+    // Handle ID file
+    if ($request->hasFile('id_file')) {
+        if (!empty($idImage)) {
+            Storage::disk('public')->delete('uploads/' . $idImage);
+        }
+        $file = $request->file('id_file');
+        $idImage = time() . '_id_' . $file->getClientOriginalName();
+        $file->storeAs('uploads', $idImage, 'public');
+    }
+
+    // Handle Other Document
+    if ($request->hasFile('other_document')) {
+        if (!empty($otherDocument)) {
+            Storage::disk('public')->delete('uploads/' . $otherDocument);
+        }
+        $file = $request->file('other_document');
+        $otherDocument = time() . '_other_' . $file->getClientOriginalName();
+        $file->storeAs('uploads', $otherDocument, 'public');
+    }
+
+    // Update DB
+    DB::table('customers')->where('id', $request->id)->update([
+        'name' => $request->name,
+        'mobile_number' => $request->mobile_number,
+        'district' => $request->district,
+        'gender' => $request->gender,
+        'blood_group' => $request->blood_group,
+        'dob' => $request->dob,
+        'email' => $request->email,
+        'state' => $request->state,
+        'pin_code' => $request->pincode,
+        'address' => $request->address,
+        'relation_type' => $request->sdw_type,
+        'relation_name' => $request->sdw_name,
+        'profile_image' => $profileImage,
+        'aadhar_number' => $request->aadhar_number,
+        'validity_start' => $request->validity_start,
+        'validity_end' => $request->validity_end,
+        'profession' => $request->profession,
+        'authority' => $request->Authority,
+        'id_image' => $idImage,
+        'id_type' => $request->id_type,
+        'other_document' => $otherDocument,
+        'remarks' => $request->remarks,
+        'updated_at' => now()
+    ]);
+
+    return response()->json(['status' => 'success']);
+}
+
+
+public function deleteUserCoordinator($id){
+    $user = DB::table('customers')->where('id', $id)->first();
+
+    if ($user) {
+        // Delete uploaded files
+        if (!empty($user->profile_image)) {
+            Storage::disk('public')->delete('uploads/' . $user->profile_image);
+        }
+        if (!empty($user->id_image)) {
+            Storage::disk('public')->delete('uploads/' . $user->id_image);
+        }
+        if (!empty($user->other_document)) {
+            Storage::disk('public')->delete('uploads/' . $user->other_document);
+        }
+
+        DB::table('customers')->where('id', $id)->delete();
+
+        return response()->json(['status' => 'success']);
+    }
+
+    return response()->json(['status' => 'error', 'message' => 'User not found.'], 404);
+}
+
+
+// complain and solution 
+
+public function complainSolution(){
+    return view('admin.complain-solution');
+}
+public function getComplainSolution(Request $request){
+        if ($request->ajax()) {
+            $data = DB::table('complain_suggestion')->get();
+            // dd($data);
+            return DataTables::of($data)
+                ->addIndexColumn()
+                ->addColumn('action', function($row){
+                      
+
+                  $btn = '<a href="javascript:void(0);" data-id="'.$row->id.'" class="btn edit-btn" style="margin-right:5px;">
+                        <img src="'.asset('images/edit.png').'" alt="Edit" style="height:30px;">
+                    </a>';
+
+                    $btn .= '<a href="javascript:void(0);" data-id="'.$row->id.'" class="delete btn">
+                        <img src="'.asset('images/delete.png').'" alt="Delete" style="height:30px;">
+                    </a>';
+
+                    return $btn;
+                })
+                ->rawColumns(['action'])
+                ->make(true);
+         }
+}
+public function editComplainSolution($id){
+     $data = DB::table('complain_suggestion')->where('id', $id)->first();
+    return response()->json($data);
+}
+public function updateComplainSolution(Request $request){
+
+
+    // Validate basic fields
+    $validated = $request->validate([
+        'name' => 'required|string',
+        'phone' => 'required|string',
+        'city' => 'required|string',
+        'video_url' => 'nullable|string',
+        'message' => 'nullable|string',
+        'description' => 'nullable|string',
+        'status' => 'required|in:0,1,2',
+        'completion_date' => 'nullable|date',
+        'solution_title' => 'nullable|string',
+        'solution_description' => 'nullable|string',
+        'upload_document_1' => 'nullable|file|mimes:pdf,jpg,jpeg,png',
+        'upload_document_2' => 'nullable|file|mimes:pdf,jpg,jpeg,png',
+        'solution_file' => 'nullable|file|mimes:pdf,jpg,jpeg,png',
+    ]);
+
+    $customer = DB::table('complain_suggestion')->where('id', $request->id)->first();
+
+    $upload_document_1 = $customer->upload_document_1;
+    $upload_document_2 = $customer->upload_document_2;
+    $solution_file = $customer->solution_file;
+
+    // Handle profile image
+    // dd($request->hasFile('image'));
+    if ($request->hasFile('upload_document_1')) {
+        // dd('x');
+        if (!empty($upload_document_1)) {
+            Storage::disk('public')->delete('uploads/' . $upload_document_1);
+            
+        }
+        $file = $request->file('upload_document_1');
+        $upload_document_1 = time() . '_upload_document_1_' . $file->getClientOriginalName();
+        $file->storeAs('uploads', $upload_document_1, 'public');
+        
+    }
+
+    if ($request->hasFile('upload_document_2')) {
+        if (!empty($upload_document_2)) {
+            Storage::disk('public')->delete('uploads/' . $upload_document_2);
+        }
+        $file = $request->file('upload_document_2');
+        $upload_document_2 = time() . '_upload_document_2_' . $file->getClientOriginalName();
+        $file->storeAs('uploads', $upload_document_2, 'public');
+    }
+
+    // Handle Other Document
+    if ($request->hasFile('solution_file')) {
+        if (!empty($solution_file)) {
+            Storage::disk('public')->delete('uploads/' . $solution_file);
+        }
+        $file = $request->file('solution_file');
+        $solution_file = time() . '_solution_file_' . $file->getClientOriginalName();
+        $file->storeAs('uploads', $solution_file, 'public');
+    }
+  
+
+    // Update the record
+    DB::table('complain_suggestion')->where('id', $request->id)->update([
+        'name' => $request->name,
+        'phone' => $request->phone,
+        'city' => $request->city,
+        'video_url' => $request->video_url,
+        'message' => $request->message,
+        'description' => $request->description,
+        'status' => $request->status,
+        'upload_document_1' => $upload_document_1,
+        'upload_document_2' => $upload_document_2,
+        'completion_date' => $request->completion_date,
+        'solution_title' => $request->solution_title,
+        'solution_description' => $request->solution_description,
+        'solution_file' => $solution_file,
+        'updated_at' => now(),
+    ]);
+
+    return response()->json(['success' => 'Complaint updated successfully!']);
+}
+
+
+//change password
+
+public function showChangePasswordForm(){
+    return view('admin.change-password');
+}
+
+public function updatePassword(Request $request)
+{
+    $request->validate([
+        'old_password' => 'required',
+        'new_password' => 'required|min:8|confirmed',
+    ]);
+
+    $user = Auth::user(); 
+
+    if (!Hash::check($request->old_password, $user->password)) {
+        return back()->with('error', 'Old password does not match.');
+    }
+
+    $user->password = Hash::make($request->new_password);
+    $user->save(); 
+
+    return back()->with('success', 'Password changed successfully.');
+}
+
+
+//contact list
+
+public function contactList(){
+    $contacts=DB::table('contact_list')->get();
+return view('admin.contact-list',compact('contacts'));
+}
+
+public function contactDelete($id)
+{
+    $contact = DB::table('contact_list')->where('id', $id)->first();
+
+    if ($contact) {
+        DB::table('contact_list')->where('id', $id)->delete();
+        return redirect()->back()->with('success', 'Contact deleted.');
+    } else {
+        return redirect()->back()->with('error', 'Contact not found.');
+    }
+}
+
+
+
+}
+
+
+
+
+
+
+
+

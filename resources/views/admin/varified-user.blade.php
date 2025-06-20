@@ -34,10 +34,15 @@ div.dataTables_wrapper {
 }
 
     </style>
-    <h2 style="display: inline-block; margin: 10px; font-family: 'Times New Roman', Times, serif;">
-    User List
-</h2>
 
+ <div style="display: flex; justify-content: space-between; align-items: center; margin: 10px;">
+    <h2 style="margin: 0;">
+      Verified User List
+    </h2>
+    <a href="{{ route('add-member') }}" class="btn btn-success" style="padding: 6px 12px; font-size: 14px;">
+        Add Member
+    </a>
+</div>
   <div style="overflow-x:auto;">
     <table id="users-table" class="display nowrap" style="width:100%">
         <thead>
@@ -85,7 +90,7 @@ div.dataTables_wrapper {
                         return meta.row + meta.settings._iDisplayStart + 1;
                     }
     },
-    { data: 'name', name: 'name' },
+    { data: 'name', name: 'name',className: 'text-center' },
     // { data: 'gender', name: 'gender' },
     // { data: 'dob', name: 'dob' },
     // { data: 'relation', name: 'relation' },
@@ -93,14 +98,14 @@ div.dataTables_wrapper {
     // { data: 'blood_group', name: 'blood_group' },
     // { data: 'state', name: 'state' },
     // { data: 'district', name: 'district' },
-    { data: 'mobile_number', name: 'mobile_number' },
-    { data: 'aadhar_number', name: 'aadhar_number' },
+    { data: 'mobile_number', name: 'mobile_number',className: 'text-center' },
+    { data: 'aadhar_number', name: 'aadhar_number',className: 'text-center' },
     // { data: 'address', name: 'address' },
     // { data: 'pin_code', name: 'pin_code' },
-    { data: 'email', name: 'email' },
+    { data: 'email', name: 'email',className: 'text-center' },
     // { data: 'created_at', name: 'created_at' },
     // { data: 'profile_image', name: 'profile_image' },
-    { data: 'action', name: 'action', orderable: false, searchable: false }
+    { data: 'action', name: 'action', orderable: false, searchable: false,className: 'text-center' }
 ]
 
         });

@@ -127,7 +127,7 @@ div.dataTables_wrapper {
 
     if (confirm("Are you sure you want to delete this post?")) {
         $.ajax({
-            url: "/deleteManagers/" + id,
+            url: "/coordinatorDeleteUser/" + id,
             type: "DELETE",
             data: {
                 _token: "{{ csrf_token() }}"

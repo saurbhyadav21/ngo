@@ -24,7 +24,7 @@
         </tr>
          <tr>
             <th>Relation</th>
-            <td>{{ $data->relation }}</td>
+            <td>{{ $data->relation_type }}</td>
         </tr>
          <tr>
              <th>Blood Group</th>
@@ -58,7 +58,21 @@
             <th>Email</th>
             <td>{{ $data->email }}</td>
         </tr>
-       
+       <tr>
+            <th>Status</th>
+            <!-- <td>{{ $data->status }}</td> -->
+              <td id="statusText">
+    @if ($data->status == 1)
+        <span class="badge bg-success">Verified</span>
+    @elseif ($data->status == 0)
+        <span class="badge bg-danger">Unverified</span>
+    @elseif ($data->status == 2)
+        <span class="badge bg-warning text-dark">Pending</span>
+    @else
+        <span class="badge bg-secondary">Unknown</span>
+    @endif
+</td>
+        </tr>
         
 
     </table>
@@ -82,7 +96,7 @@
         </tr>
          <tr>
             <th>Relation</th>
-            <td>{{ $data->relation }}</td>
+            <td>{{ $data->relation_type }}</td>
         </tr>
          <tr>
              <th>Blood Group</th>
@@ -147,7 +161,7 @@
         </tr>
          <tr>
             <th>Relation</th>
-            <td>{{ $data->relation }}</td>
+            <td>{{ $data->relation_type }}</td>
         </tr>
          <tr>
              <th>Blood Group</th>

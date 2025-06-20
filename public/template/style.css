@@ -1,0 +1,877 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+@font-face {
+  font-family: "MyCustomFont";
+  src: url("/fonts/fa-brands-400.woff2") format("woff2"),
+    url("/fonts/fa-regular-400.woff2") format("woff2"),
+    url("/fonts/fa-solid-900.woff2") format("woff2"),
+    url("/fonts/fontawesome-webfont.woff2") format("woff2"); /* optional for older IE */
+  font-weight: normal;
+  font-style: normal;
+}
+
+body {
+  background: #0e9196;
+  font-family: "MyCustomFont", sans-serif;
+}
+
+#Logo_Image {
+  max-width: 80px;
+  max-height: 80px;
+}
+
+.main_name {
+  font-size: 31px;
+  font-weight: 700;
+  color: #2d5c07;
+}
+.icon-box {
+  border: 2px solid #2d5c07;
+  border-radius: 8px;
+  font-size: 18px;
+  font-weight: 600;
+  color: #2d5c07;
+}
+
+#Members_Apply .link-box {
+  text-decoration: none;
+  color: #2d5c07;
+}
+
+#Donate_Header {
+  background: linear-gradient(
+    122deg,
+    rgba(0, 146, 69, 1) 0%,
+    rgba(135, 190, 65, 1) 100%
+  );
+}
+
+/* hover for member Apply only */
+
+#Members_Apply:hover {
+  background: linear-gradient(
+    122deg,
+    rgba(0, 146, 69, 1) 0%,
+    rgba(135, 190, 65, 1) 100%
+  );
+}
+
+#Members_Apply:hover .link-box,
+#Members_Apply:hover .link-box i,
+#Members_Apply:hover .link-box span {
+  color: white;
+}
+
+#Donate_Header .link-box,
+#Donate_Header .link-box i,
+#Donate_Header .link-box span {
+  color: white; /* initial text color */
+}
+
+/* Hover effect for Donate box */
+#Donate_Header:hover {
+  background: #2d5c07;
+}
+
+#Donate_Header:hover .link-box,
+#Donate_Header:hover .link-box i,
+#Donate_Header:hover .link-box span {
+  color: white !important; /* override Bootstrap */
+}
+
+.nav-item .dropdown-menu {
+  display: block;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateX(10px);
+  transition: all 0.3s ease;
+  pointer-events: none;
+
+  position: absolute;
+  top: 0;
+  left: auto;
+  right: 100%; /* Position to the left of the parent */
+}
+
+.nav-item:hover .dropdown-menu {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(0);
+  pointer-events: auto;
+}
+
+/* Carousel Image */
+
+.main-slide {
+  padding-top: 100px;
+}
+
+.navbar-nav .nav-item {
+  font-size: 17px;
+  color: #000;
+  font-weight: 600;
+}
+
+.navbar-nav .nav-link:hover {
+  color: #0bd53a !important;
+  text-decoration: underline;
+}
+
+/* 2) Fix carousel height */
+.photo .carousel,
+.photo .carousel-inner,
+.photo .carousel-item {
+  height: 70vh; /* adjust this to taste (e.g. 50vh, 400px, etc) */
+}
+
+/* 3) Crop overflow so the image conforms exactly */
+.photo .carousel-inner,
+.photo .carousel-item {
+  overflow: hidden;
+}
+
+/* 4) Fill & crop the image */
+.photo .carousel-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain; /* cover = fills & crops, contain would letterbox */
+  display: block;
+}
+
+/* 5) Pull controls in close & keep them clickable */
+.photo .carousel-control-prev {
+  left: 8px;
+}
+.photo .carousel-control-next {
+  right: 8px;
+}
+.photo .carousel-control-prev,
+.photo .carousel-control-next {
+  width: 50px; /* larger hit area */
+  z-index: 10;
+  pointer-events: auto;
+}
+
+/* 6) Style your circular icons */
+.photo .carousel-control-prev-icon,
+.photo .carousel-control-next-icon {
+  background-color: rgba(0, 0, 0, 0.6);
+  border-radius: 50%;
+  width: 35px;
+  height: 35px;
+  background-size: 100% 100%;
+}
+.photo .carousel-control-prev-icon:hover,
+.photo .carousel-control-next-icon:hover {
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+.extra_button-wrapper {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.extra_button .btn {
+  border: 2px solid #5f9e2b;
+  border-radius: 8px;
+  font-size: 20px;
+  /* color: white; */
+}
+
+.extra_button > div {
+  flex: 0 0 auto;
+}
+
+.extra_button i {
+  background-color: #519917;
+  color: white;
+  padding: 9px;
+  border-radius: 100%;
+}
+
+.button_item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  text-decoration: none;
+  color: black;
+  font-weight: 900;
+}
+
+/* About us */
+/* Flexbox container */
+.about-wrapper {
+  display: flex;
+  gap: 1rem;
+  width: 100%;
+}
+
+/* Card 1: 30% width */
+.card1 {
+  flex: 1 1 30%;
+  max-width: 60%;
+  box-shadow: 2px 4px 10px 0 rgba(197, 197, 197, 0.2);
+
+}
+
+/* Card 2: 70% width */
+.card2 {
+  flex: 1 1 90%;
+  max-width: 100%;
+  font-size: 17px;
+  font-weight: 600;
+  box-shadow: 2px 4px 10px 0 rgba(0, 0, 0, 0.2);
+
+}
+
+/* Make both cards fill their parent */
+.card1 .card,
+.card2 .card {
+  height: 100%;
+  width: 100%;
+}
+
+/* Make card-body stretch */
+.card-body {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid #519917;
+  border-radius: 12px;
+}
+
+/* Image styling */
+.hero {
+  width: 100%;
+  height: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.hero img {
+  max-width: 100%;
+  height: auto;
+  object-fit: contain;
+  border-radius: 12px;
+}
+
+/* Read More button styling */
+.readmore_btn_div {
+  text-align: right;
+  margin-top: 20px;
+}
+
+.readmore_btn_div a {
+  text-decoration: none;
+  background-color: white;
+  border: 2px solid #4CAF50;
+  color: #4CAF50;
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-weight: 600;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.readmore_btn_div a:hover {
+  background-color: #4CAF50;
+  color: white;
+}
+
+
+
+/* latest Activity */
+
+.latest-activity {
+  background-color: #f1f5eb;
+  padding: 40px 0;
+  font-family: sans-serif;
+}
+
+.activity-card {
+  background-color: #fff;
+  width: 22rem;
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+}
+
+.video-wrapper iframe {
+  width: 100%;
+  height: 200px;
+  border: none;
+}
+
+.latest-photo img{
+  width: 100%;
+  height: 200px;
+  border: none;
+}
+
+
+.activity-body {
+  padding: 15px;
+}
+
+.activity-body h5 {
+  font-weight: bold;
+  font-size: 21px;
+  margin-bottom: 10px;
+}
+
+.view-detail {
+  display: inline-block;
+  border: 2px solid #519917;
+  color: #519917;
+  font-size: 14px;
+  padding: 5px 12px;
+  border-radius: 5px;
+  margin-bottom: 8px;
+  text-decoration: none;
+}
+
+.date {
+  font-size: 17px;
+  color: #807b7b;
+  font-weight: 300;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+/* Ojective */
+
+.objective-card {
+  position: relative;
+  width: 18%; /* ~5 cards in 100% width with gaps */
+  /* min-width: 300px; */
+  height: 230px;
+  border-radius: 12px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.objective-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+
+.objective-card:hover img {
+  transform: scale(1.1);
+}
+
+.overlay-text {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  /* background: rgba(0, 0, 0, 0.55); */
+  padding: 10px 5px;
+  font-weight: 700;
+  font-size: 1rem;
+  letter-spacing: 1px;
+  color: #fff;
+  transition: color 0.3s ease;
+}
+
+.objective-card:hover .overlay-text {
+  color: #28a745;
+}
+
+/* Member and management  */
+
+.owl-carousel .item {
+  padding: 15px;
+}
+.item {
+  background-color: rgb(243, 243, 243);
+  display: flex;
+  justify-content: center;
+}
+.people {
+  padding: 20px;
+}
+
+.people_border {
+  background: linear-gradient(
+    122deg,
+    rgba(0, 146, 69, 1) 0%,
+    rgba(135, 190, 65, 1) 100%
+  );
+  border-radius: 15px;
+  padding: 20px;
+  max-width: 300px;
+  height: auto;
+  color: white;
+}
+
+.People_sub_div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.People_img {
+  background-color: #a5d6a7;
+  width: 200px;
+  height: 220px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.People_img img {
+  max-width: 98%;
+  max-height: 95%;
+  object-fit: cover;
+}
+
+.People_Content .Name_content {
+  background-color: #1b5e20;
+  padding: 15px 40px;
+  border-radius: 5px;
+  font-weight: bold;
+  font-size: 18px;
+  text-align: center;
+  display: inline-block;
+  width: 100%;
+  margin-bottom: 5px;
+}
+
+.People_Content .position_member{
+  font-size: 18px;
+  font-weight: 700;
+}
+
+
+/* Gallery */
+
+#galleryBox {
+  display: flex;
+  justify-content: center;
+  max-width: 98%;
+}
+
+#gallery {
+  height: 70%;
+  width: 30%;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.js-slide {
+  height: 300px; /* or any height */
+  background-size: cover;
+  background-position: center;
+  color: black; /* text color if over image */
+  padding: 20px;
+}
+
+/* Testimonial */
+/* Ensures testimonial box has position: relative */
+.testimonial-section {
+  background: linear-gradient(
+    122deg,
+    rgba(0, 146, 69, 1) 0%,
+    rgba(135, 190, 65, 1) 100%
+  );
+  padding: 4rem 1rem;
+}
+
+.testimonial-card {
+  position: relative;
+  background: white;
+  padding: 2rem 1rem;
+  border-radius: 1.5rem;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Make default bootstrap controls behave inside container */
+.testimonial-card .carousel-control-prev,
+.testimonial-card .carousel-control-next {
+  width: 40px;
+  height: 40px;
+  background-color: #d4edda; /* light green */
+  border-radius: 50%;
+  top: 50%;
+  transform: translateY(-50%);
+  opacity: 1;
+  color: #155724;
+  z-index: 2;
+}
+
+/* Position them just outside the text column, but inside the box */
+.testimonial-card .carousel-control-prev {
+  left: 20px;
+}
+
+.testimonial-card .carousel-control-next {
+  right: 20px;
+}
+
+/* Optional: icon size tweak */
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+  background-size: 60% 60%;
+  filter: invert(1);
+}
+
+/* Footer */
+
+.footer {
+  font-weight: 900;
+}
+
+.main-logo {
+  height: 10%;
+  width: 10%;
+}
+
+.footer .brand-logo a {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  font-size: 20px;
+  color: white;
+  text-decoration: none;
+  margin: 4px;
+
+}
+
+.footer-hero ul {
+  padding-left: 0%;
+  list-style: none;
+  margin-left: none;
+  font-weight: 700;
+  line-height: 1.8rem;
+}
+.box {
+  height: 340px;
+  width: 340px;
+  border: 2px solid black;
+}
+
+.footer-hero ul {
+  padding-left: 0%;
+  list-style: none;
+  margin-left: none;
+  font-weight: 700;
+  line-height: 1.8rem;
+}
+
+.footer-hero a {
+  text-decoration: none;
+  color: black;
+  font-weight: 200;
+}
+.box {
+  height: 100px;
+  width: 100px;
+  border: 2px solid black;
+}
+
+.copyright-area ul {
+  padding-left: 0%;
+  list-style: none;
+  font-weight: 600;
+  margin-left: none;
+  line-height: 1.8rem;
+}
+
+.Copyright-claim{
+  font-weight: 500;
+}
+
+.footer-menu a {
+  text-decoration: none;
+  color: black; /* or any color you want */
+  font-weight: 200;
+  font-size: small;
+}
+
+.line {
+  height: 2px;
+  background-color: #28a745; /* change to your desired color */
+  width: 100%; /* or 80%, or fixed like 500px */
+  margin: 10px auto;
+}
+
+
+
+@media (max-width: 992px) {
+  .main_name {
+    font-size: 50px;
+  }
+
+  .navbar-nav .nav-item {
+    font-size: 40px;
+  }
+
+  #Logo_Image {
+    max-width: 140px;
+    max-height: 140px;
+  }
+
+  /* .navbar-nav .dropdown-menu
+
+ {
+    position: static;
+} */
+
+  .navbar-nav .dropdown-menu {
+    position: absolute !important;
+  }
+
+  /* Carousel */
+
+  .main-slide {
+    padding-top: 250px;
+  }
+
+  .photo {
+    padding: 0 1rem;
+  }
+
+  .photo .carousel-inner,
+  .photo .carousel-item,
+  .photo .carousel-item img {
+    width: 100% !important;
+    height: auto !important;
+    /* margin: 0 auto; center horizontally */
+    object-fit: contain !important;
+  }
+
+  .photo .carousel {
+    height: auto !important;
+  }
+
+  .photo .carousel-control-prev,
+  .photo .carousel-control-next {
+    top: 50%;
+    transform: translateY(-50%);
+  }
+
+  /* Extra button */
+
+  /* member and management */
+
+  .owl-carousel .item .card {
+    width: 100% !important;
+    height: auto;
+  }
+
+  .owl-carousel .item {
+    justify-content: center;
+    padding: 0 15px;
+    width: 100%;
+    height: auto;
+  }
+
+  .People_img{
+    max-width: 200px;
+    height: 200px;
+  }
+
+  /* About and president  */
+
+  .about-wrapper {
+    /* display: flex; */
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    width: 100%;
+    margin: 0%;
+  }
+  .About .card1 {
+    max-width: 98%;
+    height: auto;
+  }
+
+  .About .card2 {
+    font-weight: 500;
+    /* font-size: 50px; */
+  }
+
+  .about_us_content_div p {
+    font-size: 45px;
+  }
+
+  /* latest - activity */
+
+  .activity-card {
+    width: 98%;
+    max-width: 98%;
+    min-height: auto;
+  }
+
+  .video-wrapper {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 16 / 9;
+  }
+
+  .video-wrapper iframe {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    border-radius: 8px;
+  }
+
+  .activity-card img {
+    width: 100%;
+    height: 100%;
+    /* aspect-ratio: 16 / 9; */
+    object-fit: contain;
+    border-radius: 8px;
+  }
+
+  .activity-body {
+    padding: 20px;
+    font-size: 36px;
+  }
+
+  .activity-body .date,
+  .activity-body .view-detail {
+    font-size: 1.5rem;
+  }
+
+  .latest-activity h5,
+  p {
+    font-size: 3rem;
+  }
+
+  .objective-card {
+    position: relative;
+    width: 98%;
+    height: auto;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    min-width: unset;
+    min-height: unset;
+    /* Remove color: inherit to avoid interference with child elements */
+  }
+
+  .objective-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    transition: transform 0.4s ease;
+  }
+
+  /* .objective-card:hover img {
+    transform: scale(1.1);
+  } */
+
+  .overlay-text {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    padding: 10px 5px;
+    font-weight: 700;
+    font-size: 45px;
+    letter-spacing: 1px;
+    color: white; /* Base color */
+    background: rgba(
+      0,
+      0,
+      0,
+      0.5
+    ); /* Optional: Add a background for better readability */
+  }
+
+  .objective-card:hover .overlay-text {
+    color: #28a745; /* Green color on hover */
+  }
+
+  /* Gallery */
+
+  #galleryBox {
+    max-width: 98%;
+    margin: 0 auto; /* Center the carousel */
+  }
+
+  #galleryBox img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    border-radius: 12px; /* Optional */
+  }
+
+  .carousel_slide,
+  .carousel-inner {
+    width: 100% !important;
+    height: auto;
+  }
+
+  .carousel_slide,
+  .carousel-item {
+    text-align: center;
+  }
+
+  .testimonial-section,
+  .testimonial-card {
+    padding: 20px !important;
+    background: #f8faf8; /* optional soft bg */
+    border-radius: 20px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  }
+
+  /* .carousel-inner .row {
+    flex-direction: column !important;
+    align-items: center !important;
+    text-align: center;
+  } */
+
+  .carousel-item img {
+    width: 90px;
+    height: 60px;
+    margin-bottom: 15px;
+  }
+
+  .carousel-item p {
+    font-size: 70px;
+    padding: 0 10px;
+  }
+
+  .carousel-item h5 {
+    margin-top: 10px;
+    font-size: 18px;
+  }
+
+  .carousel-item small {
+    font-size: 14px;
+    color: #666666;
+  }
+
+  /* .testimonial-btn {
+    display: none !important;
+  } */
+  footer,
+  h4,
+  span {
+    font-size: 50px;
+    font-weight: 400;
+  }
+
+  #follow_page h4 {
+    font-size: 60px !important;
+  }
+}

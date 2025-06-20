@@ -1,19 +1,25 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\Controller;
+use App\Http\Controllers\CoordinatorController;
 use App\Http\Controllers\Manager;
 use App\Http\Controllers\ManagerController;
 use App\Http\Controllers\ProfileController;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
+Route::get('/', [ProfileController::class, 'welcome']);
 
     // Route::get('/getuser', [AdminController::class, 'getAllUser'])->name('getuser.data');
     Route::get('/get-varified-user', [AdminController::class, 'getVarifiedUser'])->name('get-varified-user');
     Route::get('/varified-user', [AdminController::class, 'index'])->name('varified-user.index');
+    Route::get('/add-member', [AdminController::class, 'addMember'])->name('add-member');
+    Route::post('/update-member', [AdminController::class, 'updateMember'])->name('update-member');
     
     Route::get('/get-unvarified-user', [AdminController::class, 'getUnvarifiedUser'])->name('get-unvarified-user');
     Route::get('/unvarified-user', [AdminController::class, 'index2'])->name('unvarified-user.index');
@@ -176,6 +182,46 @@ Route::get('/doner-print/{id}', [AdminController::class, 'donerPrint'])->name('d
     Route::get('/get-participate', [AdminController::class, 'getParticipate'])->name('get-participate');
     Route::delete('/delete-participate/{id}', [AdminController::class, 'deleteParticipate'])->name('delete-participate');
 
+// web.php
+
+
+//complain and solution
+
+    Route::get('/complain-solution', [AdminController::class, 'complainSolution'])->name('complain-solution');
+    Route::get('/get-complain-solution', [AdminController::class, 'getComplainSolution'])->name('get-complain-solution');
+Route::get('/complain-solution/edit/{id}', [AdminController::class, 'editComplainSolution']);
+Route::post('/complain-solution/update', [AdminController::class, 'updateComplainSolution'])->name('complain-solution-update');
+
+//change password
+Route::get('/change-password', [AdminController::class, 'showChangePasswordForm'])->name('change.password.form');
+Route::post('/change-password', [AdminController::class, 'updatePassword'])->name('change.password.update');
+
+// contact list
+Route::get('/contact-list', [AdminController::class, 'contactList'])->name('contact-list');
+Route::delete('/contacts/{id}', [AdminController::class, 'contactDelete'])->name('contacts.destroy');
+
+
+
+Route::get('/coordinator/report', [AdminController::class, 'coordinatorReport'])->name('coordinator.report');
+Route::get('/coordinator/data/{id}', function ($id) {
+    $coordinator = DB::table('coordinators')->where('id', $id)->first();
+
+    $customers = DB::table('customers')
+        ->where('coordinator_id', $id)
+        ->get();
+
+    return response()->json([
+        'coordinator' => $coordinator,
+        'customers' => $customers
+    ]);
+});
+Route::get('/user/edit-inline/{id}', function ($id) {   
+    $user = DB::table('customers')->where('id', $id)->first();
+    return view('partials.inline-edit-user', compact('user'));
+});
+
+Route::post('/user/update-inline', [AdminController::class, 'updateUserCoordinator'])->name('/user/update-inline');
+Route::delete('/user/delete/{id}', [AdminController::class, 'deleteUserCoordinator'])->name('user.delete');
 
 // web.php
 
@@ -205,21 +251,39 @@ Route::get('/admin/dashboard', function () {
          $donationCount       =  DB::table('donation')->count();
          $managementTeamCount =  DB::table('management')->count();
          $testimonialCount    =  DB::table('testimonials')->count();
+         $contactList         =  DB::table('contact_list')->count();
 
-        return view('dashboard', compact('unverifiedCount','verifiedCount','donationCount','managementTeamCount','testimonialCount'));
+        return view('dashboard', compact('unverifiedCount','verifiedCount','donationCount','managementTeamCount','testimonialCount','contactList'));
 })->middleware('auth:web');
 
-Route::get('/manager/dashboard', function () {
-         $unverifiedCount =  DB::table('customers')->where('status', 0)->count();
-         $verifiedCount   =  DB::table('customers')->where('status', 1)->count();
-         $pendingUser     =  DB::table('customers')->where('status', 2)->count();
-         $donationCount   =  DB::table('donation')->count();
-    return view('manager.dashboard', compact('unverifiedCount','verifiedCount','donationCount','pendingUser'));
-})->middleware('auth:manager');
+Route::middleware(['auth:manager'])->group(function () {
+    Route::get('/manager/dashboard', function () {
+        $unverifiedCount = DB::table('customers')->where('status', 0)->count();
+        $verifiedCount   = DB::table('customers')->where('status', 1)->count();
+        $pendingUser     = DB::table('customers')->where('status', 2)->count();
+        $donationCount   = DB::table('donation')->count();
 
+        return view('manager.dashboard', compact(
+            'unverifiedCount',
+            'verifiedCount',
+            'pendingUser',
+            'donationCount'
+        ));
+    })->name('manager.dashboard');
+}); 
 Route::get('/coordinator/dashboard', function () {
-    return view('coordinator.dashboard');
+    // 1. Get logged-in coordinator ID
+    $coordinatorId = auth()->guard('coordinator')->id();
+// dd($coordinatorId);
+    // 2. Get customers registered by this coordinator
+    $customers = DB::table('customers')
+        ->where('coordinator_id', $coordinatorId)
+        ->get();
+
+    // 3. Return to view
+    return view('coordinator.dashboard', compact('customers'));
 })->middleware('auth:coordinator');
+
 
 
 
@@ -239,5 +303,23 @@ Route::get('/managerpending-user', [ManagerController::class, 'managerPending'])
 
 Route::get('/manager-user-details/{id}', [ManagerController::class, 'userDetails'])->name('manager-user-details');
 Route::delete('/manager-user-delete/{id}', [ManagerController::class, 'deleteUser'])->name('manager-user-delete');
+
+    Route::get('/manager-doner-details/{id}', [ManagerController::class, 'managerDonerDetails'])->name('manager-doner-details');
+
+Route::post('/donation/status-update', [ManagerController::class, 'donorStatusUpdate'])->name('donation.status.update');
+
+    Route::delete('/managerDeleteDoner/{id}', [ManagerController::class, 'deleteDoner'])->name('managerDeleteDoner.delete');
+
+
+    //coordinator   
+Route::get('/getCustomers', [CoordinatorController::class, 'getCustomers'])->name('getCustomers.index');
+
+    Route::get('/add-user', [CoordinatorController::class, 'addUser'])->name('add-user');
+    
+    Route::post('/store-CoordinatorUser', [CoordinatorController::class, 'createUser'])->name('store-CoordinatorUser');
+Route::get('/coordinator-user-details/{id}', [CoordinatorController::class, 'userDetails'])->name('coordinator-user-details');
+    Route::delete('/coordinatorDeleteUser/{id}', [CoordinatorController::class, 'deleteUser'])->name('coordinatorDeleteUser.delete');
+
+    
 
 require __DIR__.'/auth.php';

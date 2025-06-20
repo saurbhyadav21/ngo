@@ -24,8 +24,58 @@
         </tr>
          <tr>
             <th>Relation</th>
-            <td>{{ $data->relation }}</td>
+            <td>{{ $data->relation_type }}</td>
         </tr>
+         <tr>
+            <th>Relation Name</th>
+            <td>{{ $data->relation_name }}</td>
+        </tr>
+         <tr>
+            <th>Profession</th>
+            <td>{{ $data->profession }}</td>
+        </tr>
+         <tr>
+    <th>Profile Image</th>
+    <td>
+      @if($data->profile_image)
+    <img src="{{ asset('storage/uploads/' . $data->profile_image) }}" alt="Profile Image" width="100">
+@else
+    No Image Uploaded
+@endif
+
+    </td>
+</tr>
+        <tr>
+            <th>ID Type</th>
+            <td>
+         @if($data->id_type)
+        {{ $data->id_type }}
+    @else
+        No ID Type Defined
+    @endif
+    </td>
+        </tr>
+       <tr> 
+    <th>ID Image</th>
+    <td>
+        @if($data->id_image)
+            <img src="{{ asset('storage/uploads/' . $data->id_image) }}" alt="ID Image" width="100">
+        @else
+            No Image Uploaded
+        @endif
+    </td>
+</tr>
+
+<tr>
+    <th>Other Document</th>
+    <td>
+        @if($data->other_document)
+            <img src="{{ asset('storage/uploads/' . $data->other_document) }}" alt="Other Document" width="100">
+        @else
+            No Image Uploaded
+        @endif
+    </td>
+</tr>
          <tr>
              <th>Blood Group</th>
             <td>{{ $data->blood_group }}</td>
@@ -58,7 +108,31 @@
             <th>Email</th>
             <td>{{ $data->email }}</td>
         </tr>
-       
+        <tr>
+            <th>Register By</th>
+            <td>{{ $data->registered_by }}</td>
+        </tr>
+        <tr>
+            <th>Coordinator ID</th>
+            <td>{{ $data->coordinator_id }}</td>
+        </tr>
+         <tr>
+            <th>Status</th>
+            <!-- <td id="statusText">{{ $data->status == 1 ? 'Verified' : 'Unverified' }}</td> -->
+             <td id="statusText">
+    @if ($data->status == 1)
+        <span class="badge bg-success">Verified</span>
+    @elseif ($data->status == 0)
+        <span class="badge bg-danger">Unverified</span>
+    @elseif ($data->status == 2)
+        <span class="badge bg-warning text-dark">Pending</span>
+    @else
+        <span class="badge bg-secondary">Unknown</span>
+    @endif
+</td>
+
+
+        </tr>
         
 
     </table>
@@ -82,8 +156,58 @@
         </tr>
          <tr>
             <th>Relation</th>
-            <td>{{ $data->relation }}</td>
+            <td>{{ $data->relation_type }}</td>
         </tr>
+           <tr>
+            <th>Relation Name</th>
+            <td>{{ $data->relation_name }}</td>
+        </tr>
+         <tr>
+            <th>Profession</th>
+            <td>{{ $data->profession }}</td>
+        </tr>
+         <tr>
+    <th>Profile Image</th>
+    <td>
+      @if($data->profile_image)
+    <img src="{{ asset('storage/uploads/' . $data->profile_image) }}" alt="Profile Image" width="100">
+@else
+    No Image Uploaded
+@endif
+
+    </td>
+</tr>
+        <tr>
+            <th>ID Type</th>
+            <td>
+         @if($data->id_type)
+        {{ $data->id_type }}
+    @else
+        No ID Type Defined
+    @endif
+    </td>
+        </tr>
+       <tr> 
+    <th>ID Image</th>
+    <td>
+        @if($data->id_image)
+            <img src="{{ asset('storage/uploads/' . $data->id_image) }}" alt="ID Image" width="100">
+        @else
+            No Image Uploaded
+        @endif
+    </td>
+</tr>
+
+<tr>
+    <th>Other Document</th>
+    <td>
+        @if($data->other_document)
+            <img src="{{ asset('storage/uploads/' . $data->other_document) }}" alt="Other Document" width="100">
+        @else
+            No Image Uploaded
+        @endif
+    </td>
+</tr>
          <tr>
              <th>Blood Group</th>
             <td>{{ $data->blood_group }}</td>
@@ -116,9 +240,30 @@
             <th>Email</th>
             <td>{{ $data->email }}</td>
         </tr>
-         <tr>
+        <tr>
+            <th>Register By</th>
+            <td>{{ $data->registered_by }}</td>
+        </tr>
+        <tr>
+            <th>Coordinator ID</th>
+            <td>{{ $data->coordinator_id }}</td>
+        </tr>
+          <tr>
             <th>Status</th>
-            <td id="statusText">{{ $data->status == 1 ? 'Verified' : 'Unverified' }}</td>
+            <!-- <td id="statusText">{{ $data->status == 1 ? 'Verified' : 'Unverified' }}</td> -->
+             <td id="statusText">
+    @if ($data->status == 1)
+        <span class="badge bg-success">Verified</span>
+    @elseif ($data->status == 0)
+        <span class="badge bg-danger">Unverified</span>
+    @elseif ($data->status == 2)
+        <span class="badge bg-warning text-dark">Pending</span>
+    @else
+        <span class="badge bg-secondary">Unknown</span>
+    @endif
+</td>
+
+
         </tr>
     </table>
   
@@ -131,7 +276,7 @@
 </div>
  @elseif($type === 'pending')
 <div class="container py-4">
-    <h2 class="mb-4">Sub Admin Details</h2>
+    <h2 class="mb-4">Pending Users Details</h2>
     <table class="table table-bordered">
          <tr>
             <th>Name</th>
@@ -147,8 +292,58 @@
         </tr>
          <tr>
             <th>Relation</th>
-            <td>{{ $data->relation }}</td>
+            <td>{{ $data->relation_type }}</td>
         </tr>
+           <tr>
+            <th>Relation Name</th>
+            <td>{{ $data->relation_name }}</td>
+        </tr>
+         <tr>
+            <th>Profession</th>
+            <td>{{ $data->profession }}</td>
+        </tr>
+        <tr>
+    <th>Profile Image</th>
+    <td>
+      @if($data->profile_image)
+    <img src="{{ asset('storage/uploads/' . $data->profile_image) }}" alt="Profile Image" width="100">
+@else
+    No Image Uploaded
+@endif
+
+    </td>
+</tr>
+        <tr>
+            <th>ID Type</th>
+            <td>
+         @if($data->id_type)
+        {{ $data->id_type }}
+    @else
+        No ID Type Defined
+    @endif
+    </td>
+        </tr>
+       <tr> 
+    <th>ID Image</th>
+    <td>
+        @if($data->id_image)
+            <img src="{{ asset('storage/uploads/' . $data->id_image) }}" alt="ID Image" width="100">
+        @else
+            No Image Uploaded
+        @endif
+    </td>
+</tr>
+
+<tr>
+    <th>Other Document</th>
+    <td>
+        @if($data->other_document)
+            <img src="{{ asset('storage/uploads/' . $data->other_document) }}" alt="Other Document" width="100">
+        @else
+            No Image Uploaded
+        @endif
+    </td>
+</tr>
          <tr>
              <th>Blood Group</th>
             <td>{{ $data->blood_group }}</td>
@@ -180,6 +375,14 @@
         <tr>
             <th>Email</th>
             <td>{{ $data->email }}</td>
+        </tr>
+        <tr>
+            <th>Register By</th>
+            <td>{{ $data->registered_by }}</td>
+        </tr>
+        <tr>
+            <th>Coordinator ID</th>
+            <td>{{ $data->coordinator_id }}</td>
         </tr>
          <tr>
             <th>Status</th>

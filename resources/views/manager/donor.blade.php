@@ -3,7 +3,7 @@
 @section('title', 'Home - Manager Dashboard')
 
 @section('content')
-    <title>Laravel DataTables Demo</title>
+    <!-- <title>Laravel DataTables Demo</title> -->
      <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
     <script src="https://cdn.datatables.net/1.13.5/js/jquery.dataTables.min.js"></script>
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.5/css/jquery.dataTables.min.css">

@@ -1,2 +1,7 @@
-<img src="{{ asset('images/1304919.jpg') }}" alt="Logo" style="height: 40px;">
+@php
+    $currentRoute = Route::currentRouteName();
+@endphp
 
+<img src="{{ asset('images/logo.jpg') }}"
+     alt="Logo"
+     style="height: {{ in_array($currentRoute, ['login', 'register']) ? '200px' : '40px' }};">

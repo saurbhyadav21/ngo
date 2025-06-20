@@ -20,6 +20,7 @@ integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxV
 /* Push body content on desktop */
 body {
     padding-left: 250px;
+    
 }
 
 /* Sidebar header */
@@ -82,17 +83,12 @@ body {
         left: -250px;
         
     }
-
-    
-
     .sidebar.active {
         left: 0;
     }
-
     body {
-        padding-left: 0;
+        padding-left: 0;      
     }
- 
 }
 .has-dropdown > a {
     cursor: pointer;
@@ -118,45 +114,52 @@ body {
     background-color: #333;
 }
 
+
 </style>
 <div class="sidebar" id="sidebar" >
-    <div class="sidebar-header">
-        <h3 style="color: white;">Menu</h3>
-        <!-- <img src="{{ asset('images/edit.png') }}" alt="Edit" style="height:30px;"> -->
-
-        <button class="close-sidebar d-lg-none" onclick="toggleSidebar()">×</button>
+    <div class="sidebar-header d-flex align-items-center justify-content-between">
+    <div class="d-flex align-items-center">
+        <img src="{{ asset('images/logo.jpg') }}" alt="Logo" style="height:30px; margin-right: 10px;">
+        <h3 style="color: white; margin: 0;">NGO</h3>
     </div>
+
+    <button class="close-sidebar d-lg-none" onclick="toggleSidebar()">×</button>
+</div>
+
     <ul class="sidebar-menu">
-        <li><a href="/dashboard">Dashboard</a></li>
+        <li><a href="admin/dashboard">DASHBOARD</a></li>
         <li class="has-dropdown">
-            <a href="javascript:void(0)" onclick="toggleDropdown()">Users ▾</a>
+            <a href="javascript:void(0)" onclick="toggleDropdown()">USERS ▾</a>
             <ul class="dropdown-menu" id="users-dropdown">
-                <li><a href="{{ route('varified-user.index') }}">Varified Users</a></li>
-                <li><a href="{{ route('unvarified-user.index') }}">Unvarified User</a></li>
-                <li><a href="{{ route('pending-user.index') }}">Pending User</a></li>
+                <li><a href="{{ route('varified-user.index') }}">VERIFIED USERS</a></li>
+                <li><a href="{{ route('unvarified-user.index') }}">UNVERIFIED USERS</a></li>
+                <li><a href="{{ route('pending-user.index') }}">PENDING USERS</a></li>
             </ul>
         </li>
 
-        <li><a href="{{ route('all-activity.index') }}">All Activity</a></li>
-        <li><a href="{{ route('upcoming-event') }}">Upcoming Event</a></li>
-        <li><a href="{{ route('seatBooked') }}">Seat Booked</a></li>
-        <li><a href="{{ route('participate') }}">Participation</a></li>
-        <li><a href="{{ route('donation') }}" id="login-button">Donation</a></li>
-        <li><a href="{{ route('management.index') }}" id="login-button">Management Team</a></li>
-        <li><a href="{{ route('managers.index') }}" id="login-button">Managers</a></li>
-        <li><a href="{{ route('coordinator') }}" id="login-button">Cordinators</a></li>
-        <li><a href="#" id="login-button">Cordinator Report</a></li>
-        <li><a href="#" id="login-button">Complain / Solution Event</a></li>
-        <li><a href="{{ route('testimonials') }}" id="login-button">Testimonials</a></li>
-        <li><a href="{{ route('about-us-post') }}" id="login-button">About Us Post</a></li>
-        <li><a href="{{ route('companyProfile') }}" >Company Profile</a></li>
-        <li><a href="{{ route('objective') }}" id="login-button">Objectives</a></li>
-        <li><a href="{{ route('project') }}" id="login-button">Projects</a></li>
-        <li><a href="{{ route('certificate') }}" id="login-button">Certification</a></li>
-        <li><a href="{{ route('achievements-awards') }}" id="login-button">Achievements/Awards</a></li>
-        <li><a href="{{ route('sliderImage') }}" id="login-button">Slider Image</a></li>
-        <li><a href="{{ route('backupdata') }}" id="login-button">Backup Data</a></li>
-        <li><a href="{{ route('logout') }}">Logout</a></li>
+        <li><a href="{{ route('all-activity.index') }}">ALL ACTIVITY</a></li>
+        <li><a href="{{ route('upcoming-event') }}">UPCOMING EVENT</a></li>
+        <li><a href="{{ route('donation') }}" id="login-button">PRINT DONATION SLIP</a></li>
+        <li><a href="{{ route('seatBooked') }}">SEAT BOOKED</a></li>
+        <li><a href="{{ route('participate') }}">PARTICIPANT LIST</a></li>
+        <li><a href="{{ route('management.index') }}" id="login-button">MANAGEMENT TEAM</a></li>
+        <li><a href="{{ route('managers.index') }}" id="login-button">MANAGER LIST</a></li>
+        <li><a href="{{ route('coordinator') }}" id="login-button">COORDINATOR LIST</a></li>
+        <li><a href="{{ route('coordinator.report') }}" id="login-button">COORDINATOR REPORT</a></li>
+        <li><a href="{{ route('complain-solution') }}" id="login-button">COMPLAIN / SOLUTION</a></li>
+        <li><a href="{{ route('testimonials') }}" id="login-button">TESTIMONIAL LIST</a></li>
+        <li><a href="{{ route('about-us-post') }}" id="login-button">ABOUTUS POST LIST</a></li>
+        <li><a href="{{ route('objective') }}" id="login-button">OBJECTIVE LIST</a></li>
+        <li><a href="{{ route('project') }}" id="login-button">PROJECT LIST</a></li>
+        <li><a href="{{ route('contact-list') }}" id="login-button">CONTACT LIST</a></li>
+        <li><a href="{{ route('companyProfile') }}" >COMPANY PROFILE</a></li>
+        
+        <li><a href="{{ route('certificate') }}" id="login-button">OUR CERTIFICATION</a></li>
+        <li><a href="{{ route('achievements-awards') }}" id="login-button">ACHIEVEMENTS/AWARDS</a></li>
+        <li><a href="{{ route('sliderImage') }}" id="login-button">SLIDER IMAGE</a></li>
+        <li><a href="{{ route('change.password.form') }}" id="login-button">CHANGE PASSWORD</a></li>
+        <li><a href="{{ route('backupdata') }}" id="login-button">BACKUP DATA</a></li>
+        <li><a href="{{ route('logout') }}">LOGOUT</a></li>
     </ul>
 </div>
  {{-- Page Content --}}
