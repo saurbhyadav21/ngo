@@ -16,7 +16,9 @@
         href='https://cdn-uicons.flaticon.com/3.0.0/uicons-bold-straight/css/uicons-bold-straight.css'>
     <link rel='stylesheet'
         href='https://cdn-uicons.flaticon.com/3.0.0/uicons-solid-straight/css/uicons-solid-straight.css'>
-    <link rel="stylesheet" href="http://127.0.0.1:8000/template/color.css">
+    <!-- <link rel="stylesheet" href="http://127.0.0.1:8000/template/color.css"> -->
+    <link rel="stylesheet" href="{{ asset('template/color.css') }}">
+
     <link rel="stylesheet" href="http://127.0.0.1:8000/template/style.css">
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
