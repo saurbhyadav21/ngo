@@ -730,6 +730,7 @@
                         <a href="#" class="view-detail">View Detail</a>
                         <p class="date">
                             <i class="fi fi-rr-calendar-clock"></i>
+                            <h1>ddd</h1>
                             <!-- {{ \Carbon\Carbon::parse($activity->event_start)->format('F d, Y \a\t h:i A') }} -->
                             <i class="fi fi-ss-redo ps-5"></i>
                         </p>
