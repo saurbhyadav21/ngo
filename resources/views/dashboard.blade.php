@@ -30,7 +30,7 @@ a{
       <div class="card shadow rounded h-100 tall-box">
         <a href="{{ route('varified-user.index') }}">
         <div class="card-body">
-          <h5 class="card-title d-flex justify-content-between align-items-center">Varified Members
+          <h5 class="card-title d-flex justify-content-between align-items-center">Verified Members
             <img src="{{ asset('images/verified.png') }}" alt="View" style="height:40px;">  
           </h5>
             <h6 class="text-primary">Total: {{ $verifiedCount }}</h6>
@@ -43,7 +43,7 @@ a{
       <div class="card shadow rounded h-100 tall-box">
         <a href="{{ route('unvarified-user.index') }}">
         <div class="card-body">
-          <h5 class="card-title d-flex justify-content-between align-items-center">Unvarified Members
+          <h5 class="card-title d-flex justify-content-between align-items-center">Unverified Members
             <img src="{{ asset('images/unverified.png') }}" alt="View" style="height:40px;">  
           </h5>
             <h6 class="text-primary">Total: {{ $unverifiedCount }}</h6>
