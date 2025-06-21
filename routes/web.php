@@ -225,6 +225,10 @@ Route::delete('/user/delete/{id}', [AdminController::class, 'deleteUserCoordinat
 
 // web.php
 
+Route::get('/member-t', function () {   
+    
+    return view('test.member');
+});
 
 Route::post('/user/status-update', [AdminController::class, 'ajaxUpdateStatus'])->name('user.status.update');
 

@@ -127,7 +127,7 @@ body {
 </div>
 
     <ul class="sidebar-menu">
-        <li><a href="admin/dashboard">DASHBOARD</a></li>
+        <li><a href="/admin/dashboard">DASHBOARD</a></li>
         <li class="has-dropdown">
             <a href="javascript:void(0)" onclick="toggleDropdown()">USERS ▾</a>
             <ul class="dropdown-menu" id="users-dropdown">

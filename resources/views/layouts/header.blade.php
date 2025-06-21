@@ -1,3 +1,9 @@
+ @php
+    use Illuminate\Support\Facades\DB;
+
+    $company = DB::table('company_profile')->first();
+@endphp
+ 
  <link rel="stylesheet"
         href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.6.0/css/fontawesome.min.css"
         integrity="sha384-NvKbDTEnL+A8F/AA5Tc5kmMLSJHUO868P+lDtTpJIeQdGYaUIuLr4lVGOEA1OcMy" crossorigin="anonymous">
@@ -39,12 +45,15 @@
 <header class="fixed-top bg-white mb-5 pt-1">
         <div class="container-fluid px-5">
             <div class="row align-items-center">
-                <div class="col-12 col-lg-8  d-md-flex  gap-lg-3 gap-md-4">
-                    <div class="justify-content-md-start">
-                        <img src="template/assets/logo.jpg" class="img-fluid" id="Logo_Image">
-                    </div>
-                    <div class="mb-0 main_name justify-content-md-start py-md-2">RESWAKH EDUCATION FOUNDATION</div>
-                </div>
+               <div class="col-12 col-lg-8 d-md-flex gap-lg-3 gap-md-4">
+    <div class="justify-content-md-start">
+        <img src="{{ asset('storage/uploads/' . $company->website_logo) }}" class="img-fluid" id="Logo_Image">
+    </div>
+    <div class="mb-0 main_name justify-content-md-start py-md-2">
+        {{ $company->brand_name }}
+    </div>
+</div>
+
                 <div class="col-12 col-lg-4 d-flex justify-content-space-between gap-3 mt-lg-0">
                     <!-- Members Only Box -->
                     <div class="icon-box d-flex align-items-center px-3 py-2 gap-3 d-lg-block d-none"
@@ -169,15 +178,15 @@
             <div class="row justify-content-center text-center">
                 <div class="col-12 col-lg-4 mb-4">
                     <span><i class="fi fi-rr-land-layer-location"></i> Address - </span>
-                    <span>Dabra</span>
+                    <span>{{ $company->address }}</span>
                 </div>
                 <div class="col-12 col-lg-4 mb-4">
                     <span><i class="fi fi-rr-phone-call"></i> Call us - </span>
-                    <span>+916204027847</span>
+                    <span>{{ $company->mobile }}</span>
                 </div>
                 <div class="col-12 col-lg-4 mb-4">
                     <span><i class="fi fi-rr-envelope"></i> Email - </span>
-                    <span>test@gmail.com</span>
+                    <span>{{ $company->email }}</span>
                 </div>
             </div>
             <!-- <div class="d-flex justify-content-center">
@@ -191,14 +200,15 @@
             <div class="row justify-content-center text-center pt-2">
                 <div class="col-12 col-lg-4 mb-4 my-3 " id="follow_page">
                     <div class="justify-content-md-start pb-5">
-                        <img src="template/assets/logo.jpg" class="img-fluid" id="Logo_Image">
+                                <img src="{{ asset('storage/uploads/' . $company->website_logo) }}" class="img-fluid" id="Logo_Image">
+
                     </div>
                     <h5>Follow Us</h5>
                     <div class="brand-logo pt-3">
-                        <a class="facebook-bg"><i class="fi fi-brands-facebook facebook-bg"></i></a>
-                        <a class="insta-bg"><i class="fi fi-brands-instagram"></i></a>
-                        <a class="twitter-bg"><i class="fi fi-brands-twitter-alt-circle"></i></a>
-                        <a class="youtube-bg"><i class="fi fi-brands-youtube"></i></a>
+                        <a href="{{ $company->facebook_link }}" class="facebook-bg"><i class="fi fi-brands-facebook facebook-bg"></i></a>
+                        <a href="{{ $company->instagram_link }}" class="insta-bg"><i class="fi fi-brands-instagram"></i></a>
+                        <a href="{{ $company->twitter_link }}" class="twitter-bg"><i class="fi fi-brands-twitter-alt-circle"></i></a>
+                        <a href="{{ $company->youtube_link }}" class="youtube-bg"><i class="fi fi-brands-youtube"></i></a>
                     </div>
                 </div>
                 <div class="col-12 col-md-4 mb-4 d-lg-block d-md-none d-sm-none">
@@ -249,9 +259,7 @@
                     <div class="row w-100 align-items-center">
                         <div class="col-xl-6 col-lg-6 text-lg-left d-lg-block d-md-none d-sm-none">
                             <div class="Copyright-claim">
-                                <p>Copyright © 2025, All Right Reserved <a href="index.php">RESAWKH EDUCATION
-                                        SERVICE
-                                        FOUNDATION</a></p>
+                                <p>Copyright © 2025, All Right Reserved <a href="index.php">{{ $company->brand_name }}</a></p>
                             </div>
                         </div>
                         <div class="col-xl-6 col-lg-6  text-center ">

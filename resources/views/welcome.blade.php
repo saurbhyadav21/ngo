@@ -195,17 +195,7 @@
                     <div class="card-body">
                         <div class="about_us_content_main">
                             <div class="about_us_content_div">
-                                <p>NGO is a passionate advocate for positive change, dedicated to making a tangible
-                                    difference in the world. Since our inception [Year], we have been driven by a
-                                    singular mission: to empower individuals and communities to thrive through
-                                    sustainable development initiatives, education, healthcare access, and environmental
-                                    stewardship.</p>
-
-                                <p><strong>Our Values</strong></p>
-
-                                <p>At NGO, our core values of compassion, integrity, and inclusivity guide everything we
-                                    do. We believe in the power of collaboration and collective action to address
-                                    pressing global challenges and create lasting impact.</p>
+                                <p>{{ $aboutus->description }}</p>
                             </div>
                             <div class="readmore_btn_div">
                                 <a href="./Landing_Page/About/About.html">read more</a>
@@ -730,8 +720,8 @@
                         <a href="#" class="view-detail">View Detail</a>
                         <p class="date">
                             <i class="fi fi-rr-calendar-clock"></i>
-                            <h1>ddd</h1>
-                            <h1>dcdsbcusydd</h1>
+                            <p>{{ $activity->event_start }} To {{ $activity->event_end }}</p>
+                            
                             
                             <i class="fi fi-ss-redo ps-5"></i>
                         </p>
@@ -1026,3 +1016,4 @@
 </body>
 
 </html>
+@endsection
