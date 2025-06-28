@@ -1,9 +1,14 @@
- @php
-    use Illuminate\Support\Facades\DB;
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    @php
+        use Illuminate\Support\Facades\DB;
+        $company = DB::table('company_profile')->first();
+    @endphp
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">    
+    <title>@yield('title')</title>
 
-    $company = DB::table('company_profile')->first();
-@endphp
- 
  <link rel="stylesheet"
         href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.6.0/css/fontawesome.min.css"
         integrity="sha384-NvKbDTEnL+A8F/AA5Tc5kmMLSJHUO868P+lDtTpJIeQdGYaUIuLr4lVGOEA1OcMy" crossorigin="anonymous">
@@ -41,19 +46,51 @@
         href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css"
         integrity="sha512-sMXtMNL1zRzolHYKEujM2AqCLUR9F2C4/05cdbxjjLSRvMQIciEPCQZo++nk7go3BtSuK9kfa/s+a4f4i5pLkw=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- Other styles -->
+</head>
+<style>
+    /* Reduce logo and font size on small screens */
+@media (max-width: 768px) {
+    #Logo_Image {
+        max-height: 60px;
+        width: auto;
+    }
 
+    .brand-name {
+        font-size: 1.5rem; 
+        line-height: 1.2;
+    }
+
+    .logo-container {
+        flex-shrink: 0;
+    }
+    .navbar-toggler-icon {
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+    vertical-align: middle;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 100%;
+}
+}
+
+</style>
+<body>
 <header class="fixed-top bg-white mb-5 pt-1">
-        <div class="container-fluid px-5">
+        <div class="container-fluid">
             <div class="row align-items-center">
-               <div class="col-12 col-lg-8 d-md-flex gap-lg-3 gap-md-4">
-    <div class="justify-content-md-start">
+      <div class="col-12 col-lg-8 d-flex align-items-center gap-3">
+    <!-- Logo -->
+    <div class="logo-container">
         <img src="{{ asset('storage/uploads/' . $company->website_logo) }}" class="img-fluid" id="Logo_Image">
     </div>
-    <div class="mb-0 main_name justify-content-md-start py-md-2">
+    
+    <!-- Brand Name -->
+    <div class="main_name brand-name mb-0">
         {{ $company->brand_name }}
     </div>
-</div>
-
+            </div>
                 <div class="col-12 col-lg-4 d-flex justify-content-space-between gap-3 mt-lg-0">
                     <!-- Members Only Box -->
                     <div class="icon-box d-flex align-items-center px-3 py-2 gap-3 d-lg-block d-none"
@@ -78,98 +115,81 @@
         <div class="border-top border-dark "></div>
         <div class="navbar-container p-1">
             <nav class="navbar navbar-expand-lg navbar-light bg-light">
-                <div class="container-fluid">
-                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-                        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-                    <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
-                        <ul class="navbar-nav">
-                            <li class="nav-item">
-                                <a class="nav-link " aria-current="page" href="./index.html">Home</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="./Landing_Page/Member.html">Members Apply</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="./Landing_Page/ID.html">ID Card Download</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="./Landing_Page/Upcoming events/Upcoming.html">Upcoming
-                                    Events</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="./Landing_Page/Donate.html">Donate</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="./Landing_Page/ListOfDonors.html">List Of Donors</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="./Landing_Page/Gallery.html">Gallery</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="./Landing_Page/ContactUs.html">Contact Us</a>
-                            </li>
+    <div class="container-fluid">
+        <a class="navbar-brand d-lg-none" href="#">Menu</a> 
 
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                                    data-bs-toggle="dropdown" aria-expanded="false">
-                                    About Us
-                                </a>
-                                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                    <li><a class="dropdown-item" href="#">About Us</a></li>
-                                    <li><a class="dropdown-item" href="#">Management Team</a></li>
-                                    <li><a class="dropdown-item" href="#">Our Team</a></li>
-                                    <li><a class="dropdown-item" href="#">Achievements</a></li>
-                                    <li><a class="dropdown-item" href="#">Certifications</a></li>
-                                </ul>
-                            </li>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+            data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false"
+            aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
 
-                            <li class="nav-item d-flex wanthover">
-                                <a class="nav-link" href="./Landing Page/Login/coordinator.html">Important Links</a>
-                                <div class="dropdown show p-0">
-                                    <a class="btn dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
-                                        data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></a>
+        <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item"><a class="nav-link" href="{{ route('home') }}">Home</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ url('/member-apply') }}">Members Apply</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ url('/id-card') }}">ID Card Download</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ url('/upcoming-event-website') }}">Upcoming Events</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ url('/donate-website') }}">Donate</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ url('/list-of-donors') }}">List Of Donors</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ url('/contact-us-website') }}">Gallery</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ url('/contact-us-website') }}">Contact Us</a></li>
 
-                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                        <a class="dropdown-item" href="#">CrowdFunding</a>
-                                        <a class="dropdown-item" href="#">Our Solution</a>
-                                        <a class="dropdown-item" href="#">Your Problem</a>
-                                        <a class="dropdown-item" href="#">Our Project</a>
-                                    </div>
-                                </div>
-                            </li>
-                            <li class="nav-item d-flex wanthover">
-                                <a class="nav-link" href="./Landing Page/Login/coordinator.html">Login</a>
-                                <div class="dropdown show p-0">
-                                    <a class="btn dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
-                                        data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></a>
+                <!-- About Us Dropdown -->
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="aboutDropdown" role="button"
+                        data-bs-toggle="dropdown" aria-expanded="false">
+                        About Us
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="aboutDropdown">
+                        <li><a class="dropdown-item" href="{{ url('/about-us-website') }}">About Us</a></li>
+                        <li><a class="dropdown-item" href="{{ url('/management-team-website') }}">Management Team</a></li>
+                        <li><a class="dropdown-item" href="{{ url('/team-member-website') }}">Our Team</a></li>
+                        <li><a class="dropdown-item" href="{{ url('/achievement-website') }}">Achievements</a></li>
+                        <li><a class="dropdown-item" href="{{ url('/certification-website') }}">Certifications</a></li>
+                    </ul>
+                </li>
 
-                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                        <a class="dropdown-item" href="{{ url('/login?type=coordinator') }}">
-                                            <span class="d-flex"><i
-                                                    class="fi fi-ss-sign-in-alt px-2 d-none d-lg-block"></i>Coordinator
-                                                Login</span></a>
-                                        <a class="dropdown-item" href="{{ url('/login?type=manager') }}">
-                                            <span class="d-flex"><i
-                                                    class="fi fi-ss-sign-in-alt px-2 d-none d-lg-block"></i>Manager
-                                                Login</span></a>
-                                    </div>
-                                </div>
-                            </li>
+                <!-- Important Links Dropdown -->
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="importantDropdown" role="button"
+                        data-bs-toggle="dropdown" aria-expanded="false">
+                        Important Links
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="importantDropdown">
+                        <li><a class="dropdown-item" href="{{ url('/crowdfunding-website') }}">CrowdFunding</a></li>
+                        <li><a class="dropdown-item" href="{{ url('/our-solution-website') }}">Our Solution</a></li>
+                        <li><a class="dropdown-item" href="{{ url('/your-problem-website') }}">Your Problem</a></li>
+                        <li><a class="dropdown-item" href="{{ url('/our-project-website') }}">Our Project</a></li>
+                    </ul>
+                </li>
 
-                        </ul>
-                    </div>
-                </div>
-            </nav>
+                <!-- Login Dropdown -->
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="loginDropdown" role="button"
+                        data-bs-toggle="dropdown" aria-expanded="false">
+                        Login
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="loginDropdown">
+                        <li><a class="dropdown-item" href="{{ url('/login?type=coordinator') }}">
+                            <i class="fi fi-ss-sign-in-alt px-2 d-none d-lg-inline"></i>Coordinator Login</a></li>
+                        <li><a class="dropdown-item" href="{{ url('/login?type=manager') }}">
+                            <i class="fi fi-ss-sign-in-alt px-2 d-none d-lg-inline"></i>Manager Login</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
         </div>
     </header>
 
 
-  <div class="container mt-4">
+  <!-- <div class="container-fluid mt-4"> -->
          @yield('header')
         @yield('content')
-    </div>
+    <!-- </div>  -->
 
        <!-- Footer -->
     <div class="footer mb-5">
@@ -277,6 +297,8 @@
             </div>
         </div>
     </div>
+    </body>
+    </html> 
 <!-- Jquery -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 

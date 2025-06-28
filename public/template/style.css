@@ -441,7 +441,7 @@ body {
 
 .People_Content .Name_content {
   background-color: #1b5e20;
-  padding: 15px 40px;
+  padding: 18px 0px;
   border-radius: 5px;
   font-weight: bold;
   font-size: 18px;
@@ -696,7 +696,6 @@ body {
     align-items: center;
     padding: 10px;
     width: 100%;
-    margin: 0%;
   }
   .About .card1 {
     max-width: 98%;
@@ -711,6 +710,11 @@ body {
   .about_us_content_div p {
     font-size: 45px;
   }
+
+ .about_us_content_main .readmore_btn_div a{
+font-size: 20px;
+
+}
 
   /* latest - activity */
 

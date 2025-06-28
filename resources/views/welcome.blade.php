@@ -28,10 +28,7 @@
 @section('title', 'Header List')
 
 @section('content')
-<!DOCTYPE html>
-<html lang="en">
 
-<head>
 
     <!-- Font -->
 
@@ -42,17 +39,14 @@
 
    
 
-    <title>SukhLife</title>
-</head>
 
-<body>
     
 
     <!-- Carousel Image Slidebar -->
 
     <!-- <section class="main-slide beige">
         <div class="container-fluid photo position-relative mt-5">
-            <div id="carouselExampleIndicators" class="carousel slide pt-4 mt-4" data-bs-ride="carousel">
+            <div id="carouselExampleIndicators" class="carousel slide pt-4 mt-4" data-bs-ride="carousel">-->
 
                 <!-- Carousel indicators -->
                 <!-- <div class="carousel-indicators">
@@ -92,8 +86,8 @@
         </div>
     </section>  -->
 
-<section class="main-slide beige">
-    <div class="container-fluid photo position-relative mt-5">
+<section class="main-slide">
+    <div class="container-fluid photo position-relative">
         <div id="carouselExampleIndicators" class="carousel slide pt-4 mt-4" data-bs-ride="carousel">
 
             <!-- Carousel indicators -->
@@ -108,7 +102,7 @@
             </div>
 
             <!-- Carousel items -->
-            <div class="carousel-inner border border-5 p-0">
+            <div class="carousel-inner">
                 @foreach($sliderImages as $index => $image)
                     <div class="carousel-item {{ $index === 0 ? 'active' : '' }}">
                         <img src="{{ asset('storage/uploads/' . $image->image) }}" class="d-block w-100 main-image" alt="Slider Image {{ $index + 1 }}">
@@ -178,7 +172,7 @@
 
     <section class="About">
         <h2 class="d-flex justify-content-center mt-5 main_name ">About us</h2>
-        <div class=" container-lg about-wrapper d-lg-flex gap-3">
+        <div class=" container-fluid about-wrapper d-lg-flex gap-3">
 
             <div class="card1">
                 <div class="card">
@@ -619,7 +613,7 @@
 
     <section class="About">
     <h2 class="d-flex justify-content-center mt-5">President Message</h2>
-    <div class="container-lg about-wrapper d-lg-flex gap-3">
+    <div class="container-fluid about-wrapper d-lg-flex gap-3">
 
         <!-- President Image -->
         <div class="card1">
@@ -1006,14 +1000,4 @@
         </div>
     </div>
 </section>
-
-                            
-
-
-
-
-    
-</body>
-
-</html>
 @endsection

@@ -6,14 +6,16 @@ use App\Http\Controllers\CoordinatorController;
 use App\Http\Controllers\Manager;
 use App\Http\Controllers\ManagerController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\WebsiteController;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 
 // Route::get('/', function () {
 //     return view('welcome');
 // });
-Route::get('/', [ProfileController::class, 'welcome']);
+Route::get('/', [ProfileController::class, 'welcome'])->name('home');
 
     // Route::get('/getuser', [AdminController::class, 'getAllUser'])->name('getuser.data');
     Route::get('/get-varified-user', [AdminController::class, 'getVarifiedUser'])->name('get-varified-user');
@@ -231,7 +233,10 @@ Route::get('/member-t', function () {
 });
 
 Route::post('/user/status-update', [AdminController::class, 'ajaxUpdateStatus'])->name('user.status.update');
-
+//  Route::get('/logoutAdmin', function () {
+//     Auth::logout();
+//     return redirect('/'); 
+// })->name('logoutAdmin');
 
 
     Route::get('/dashboard', function () {
@@ -313,7 +318,10 @@ Route::delete('/manager-user-delete/{id}', [ManagerController::class, 'deleteUse
 Route::post('/donation/status-update', [ManagerController::class, 'donorStatusUpdate'])->name('donation.status.update');
 
     Route::delete('/managerDeleteDoner/{id}', [ManagerController::class, 'deleteDoner'])->name('managerDeleteDoner.delete');
-
+  Route::get('/logoutManager', function () {
+    Auth::logout();
+    return redirect('/'); 
+})->name('logoutManager');
 
     //coordinator   
 Route::get('/getCustomers', [CoordinatorController::class, 'getCustomers'])->name('getCustomers.index');
@@ -324,6 +332,163 @@ Route::get('/getCustomers', [CoordinatorController::class, 'getCustomers'])->nam
 Route::get('/coordinator-user-details/{id}', [CoordinatorController::class, 'userDetails'])->name('coordinator-user-details');
     Route::delete('/coordinatorDeleteUser/{id}', [CoordinatorController::class, 'deleteUser'])->name('coordinatorDeleteUser.delete');
 
-    
 
+    Route::post('/logoutCoordinator', function () {
+    Auth::logout();
+    return redirect('/'); 
+})->name('logoutCoordinator');
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//website links
+
+
+Route::get('/member-apply', function () {
+    return view('website.member-apply');
+});
+Route::get('/id-card', function () {
+    return view('website.id-card');
+});
+Route::get('/upcoming-event-website', function () {
+        $events = DB::table('upcoming_event')
+        ->orderBy('created_at', 'desc')
+        ->limit(5)
+        ->get();
+
+    return view('website.upcoming-event',compact('events'));
+});
+
+Route::get('/donate-website', function () {
+    return view('website.donate');
+});
+
+
+Route::get('/list-of-donors', function () {
+    $donors = DB::table('donation')
+        ->where('status', 1)
+        ->orderBy('created_at', 'desc')
+        ->get();
+
+    return view('website.list-of-donors', compact('donors'));
+});
+
+Route::post('/donors/search', [WebsiteController::class, 'search'])->name('donors.search');
+
+Route::get('/contact-us-website', function () {
+    return view('website.contact-us');
+});
+
+Route::post('/create-contact-list-website', [WebsiteController::class, 'addContactList'])->name('create-contact-list-website');
+
+
+Route::get('/about-us-website', function () {
+    $companyProfile = DB::table('company_profile')->first();
+    $aboutUsPost = DB::table('about_us_post')->first();
+
+    return view('website.about-us', compact('companyProfile','aboutUsPost'));
+});
+Route::get('/management-team-website', function () {
+    $managementTeams = DB::table('management')
+        ->orderBy('created_at', 'desc')
+        ->get();
+
+    return view('website.management-team', compact('managementTeams'));
+});
+
+Route::post('/management/search', [WebsiteController::class, 'searchManagement'])->name('management.search');
+
+Route::get('/team-member-website', function () {
+    $customers = DB::table('customers')
+        ->where('status', 1)
+        ->orderBy('created_at', 'desc')
+        ->get();
+
+    return view('website.our-team', compact('customers'));
+});
+
+Route::post('/team-member/search', [WebsiteController::class, 'searchCustomers'])->name('team-member.search');
+
+
+Route::get('/achievement-website', function () {
+    $achievements = DB::table('achievementsawards')
+        ->where('status', 1)
+        ->orderBy('created_at', 'desc')
+        ->get();
+
+    return view('website.achievement', compact('achievements'));
+});
+
+Route::get('/certification-website', function () {
+    $certificates = DB::table('certificate')
+        ->where('status', 1)
+        ->orderBy('created_at', 'desc')
+        ->get();
+
+    return view('website.certification', compact('certificates'));
+});
+
+Route::get('/crowdfunding-website', function () {
+        $events = DB::table('upcoming_event')
+        ->orderBy('created_at', 'desc')
+        ->limit(5)
+        ->get();
+
+    return view('website.crowdfunding',compact('events'));
+});
+Route::get('/our-solution-website', function () {
+        $complains = DB::table('complain_suggestion')
+        ->orderBy('created_at', 'desc')
+        ->limit(2)
+        ->get();
+
+    return view('website.our-solution',compact('complains'));
+});
+
+Route::get('/your-problem-website', function () {
+    
+    return view('website.your-problem');
+});
+Route::post('/add-your-problem', [WebsiteController::class, 'addYourProblem'])->name('add-your-problem');
+
+Route::get('/our-project-website', function () {
+        $projects = DB::table('project_list')
+        ->orderBy('created_at', 'desc')
+        ->limit(2)
+        ->get();
+
+    return view('website.our-project',compact('projects'));
+});
 require __DIR__.'/auth.php';

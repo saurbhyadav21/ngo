@@ -136,7 +136,7 @@ body {
 
         <li><a href="{{ route('managerDoner') }}" id="login-button">Donation</a></li>
        
-        <li><a href="{{ route('logout') }}">Logout</a></li>
+        <li><a href="{{ route('logoutManager') }}">Logout</a></li>
     </ul>
 </div>
  {{-- Page Content --}}

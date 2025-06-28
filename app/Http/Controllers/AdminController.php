@@ -108,7 +108,7 @@ class AdminController extends Controller
         'profile_image' => $profile_image,
         'other_document' => $other_document,
         // 'remarks' => $request->remarks,
-        'registered_by' => 'admin',
+        'registered_by' => $request->registered_by ?? 'self',
          
         'created_at' => now()
     ]);
@@ -768,7 +768,7 @@ public function deleteAchievementsAwards($id){
         // Step 3: Delete database record
         DB::table('achievementsAwards')->where('id', $id)->delete();
 
-        return response()->json(['success' => 'Project and image deleted successfully.']);
+        return response()->json(['success' => 'Certificate and image deleted successfully.']);
     }
 
     return response()->json(['error' => 'Post not found.'], 404);
@@ -979,7 +979,7 @@ public function updateCoordinator(Request $request,$id){
         'city'  => 'required|string',
         'address'  => 'required|string',
         'image'    => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
-    ]);
+    ]);   
  $donation = DB::table('coordinators')->where('id', $id)->first();
 
     if (!$donation) {
@@ -1191,16 +1191,15 @@ public function companyProfile(){
     return view('admin.company-profile',compact('companyDetails'));
 }
 
-public function updateCompanyProfile(Request $request,$id){
-
-
-    // Validate text fields
-    $validate = $request->validate([
+public function updateCompanyProfile(Request $request, $id)
+{
+    // Step 1: Validate
+    $validated = $request->validate([
         'brand_name' => 'nullable|string',
         'email' => 'nullable|email',
         'website_name' => 'nullable|string',
         'facebook_link' => 'nullable|string',
-        'twitter_link'=>'nullable|string',
+        'twitter_link' => 'nullable|string',
         'instagram_link' => 'nullable|string',
         'youtube_link' => 'nullable|string',
         'facebookpage_link' => 'nullable|string',
@@ -1224,54 +1223,57 @@ public function updateCompanyProfile(Request $request,$id){
         'payment_details' => 'nullable|string',
         'donation_amount' => 'nullable|string',
         'president_message' => 'nullable|string',
-        'slider'=>'nullable|string',
+        'slider' => 'nullable|string',
     ]);
 
-    // Fetch existing record (assuming only one row exists)
-    $settings = DB::table('company_profile')->where('id', $id)->first();
-
-    // Initialize data array for update
-    $data = $validate;
-
-    // File fields array
-    $fileFields = [
-        'website_logo',
-        'signature_pic',
-        'id_card_front',
-        'id_card_back',
-        'certificate',
-        'niyukti',
-        'aboutus_image',
-        'slip',
-        'president_image',
-        'qrcode_image',
+    // Step 2: Sanitize selected fields
+    $cleanFields = [
+        'aboutus', 'privacy_policy', 'tnc', 'disclaimer',
+        'refund_policy', 'president_message',
+        'membership_charges_details', 'payment_details',
     ];
+
+    foreach ($cleanFields as $field) {
+        if (isset($validated[$field])) {
+            // Remove all HTML tags
+            $validated[$field] = strip_tags($validated[$field]); // ← This ensures <p>kk</p> → kk
+        }
+    }
+
+    // Step 3: Use $validated as the update data
+    $data = $validated;
+
+    // Step 4: File uploads
+    $fileFields = [
+        'website_logo', 'signature_pic', 'id_card_front', 'id_card_back',
+        'certificate', 'niyukti', 'aboutus_image', 'slip',
+        'president_image', 'qrcode_image',
+    ];
+
+    $settings = DB::table('company_profile')->where('id', $id)->first();
 
     foreach ($fileFields as $field) {
         if ($request->hasFile($field)) {
-
-            // Delete old file if exists
+            // Delete old
             if (!empty($settings->$field)) {
                 $oldPath = storage_path('app/public/uploads/' . $settings->$field);
-                if (file_exists($oldPath)) {
-                    unlink($oldPath);
-                }
+                if (file_exists($oldPath)) unlink($oldPath);
             }
 
-            // Store new file
+            // Upload new
             $file = $request->file($field);
             $fileName = time() . '_' . $field . '.' . $file->getClientOriginalExtension();
             $file->storeAs('uploads', $fileName, 'public');
-
             $data[$field] = $fileName;
         }
     }
 
-    // Update the record
+    // Step 5: Update DB
     DB::table('company_profile')->where('id', $id)->update($data);
 
-    return redirect()->back()->with('success', 'Website Settings updated successfully.');
+    return back()->with('success', 'Website Settings updated successfully.');
 }
+
 
 // ----------------------------------------------------------------------------------------------------------------------
     //backup data
@@ -1927,14 +1929,21 @@ public function storeDoner(Request $request){
         'address'=>'required|string',
         'image'=>'nullable|image|mimes:jpg,png,jpeg',
         'amount'=>'required|string',
+        'payment_receipt'=>'nullable|image|mimes:jpg,png,jpeg',
 
     ]);
 
     $imageName=null;
+    $payment_receipt=null;
     if($request->hasFile('image')){
         $image=$request->file('image');
         $imageName = time().'_doner_image'.$image->getClientOriginalName();
         $image->storeAs('uploads', $imageName, 'public');
+    }
+      if($request->hasFile('payment_receipt')){
+        $image=$request->file('payment_receipt');
+        $payment_receipt = time().'_payment_receipt_image'.$image->getClientOriginalName();
+        $image->storeAs('uploads', $payment_receipt, 'public');
     }
 
     DB::table('donation')->insert([
@@ -1944,6 +1953,7 @@ public function storeDoner(Request $request){
     'pancard'  => $validate['pancard'] ?? null,
     'address'  => $validate['address'],
     'image'    => $imageName,
+    'payment_receipt'=>$payment_receipt,
     'amount'   => $validate['amount'],
     'created_at' => now()
     

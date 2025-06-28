@@ -72,11 +72,15 @@ div.dataTables_wrapper {
             <h4 class="text-white m-0 nav-heading">Welcome {{ Auth::user()->name }}</h4>
         </div>
 
-        <div class="ml-auto">
-            <a href="coordinator-logout.php" class="btn btn-light">
-                <i class="fa fa-sign-out" aria-hidden="true"></i> Logout
-            </a>
-        </div>
+     <div class="ml-auto">
+    <form action="{{ route('logoutCoordinator') }}" method="POST">
+        @csrf
+        <button type="submit" class="btn btn-light">
+            <i class="fa fa-sign-out" aria-hidden="true"></i> Logout
+        </button>
+    </form>
+</div>
+
 
     </div>
 </nav>

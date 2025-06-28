@@ -1,12 +1,11 @@
-@extends('layouts.admin-layout')
+@extends('layouts.header')
 
-@section('title', 'Home - Admin Dashboard')
+@section('title', 'Header List')
 
 @section('content')
- <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"> -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" 
-integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
-</script>
+  
+ <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">  -->
+
 <style>
      @media (max-width: 991px) {
         .sub{
@@ -18,9 +17,9 @@ integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxV
     }
   }
 
-  span{
+  /* span{
     color: red;
-  }
+  } */
 
   label{
     font-weight: bold;
@@ -28,8 +27,10 @@ integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxV
     
     .product-group { margin-bottom: 10px; }
   </style>
-<div class="container mt-4 mb-5 ">
-  <h4 class="mb-4 custom-margin">Add User</h4>
+  <h3 class="mb-4 text-center" style="margin-top: 150px; font-weight: 800; color:rgba(0, 146, 69, 1)">Registration Form</h3>
+
+<div class="container" style="margin: 20px 110px 0 110px; border: 1px solid black; padding: 20px;">
+
   @if(session('success'))
   <div class="alert alert-success mt-3">
     {{ session('success') }}
@@ -37,7 +38,7 @@ integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxV
 @endif
     <form id="post-add-form" action="{{ route('update-member') }}" method="POST" enctype="multipart/form-data">
      @csrf
-    <input type="hidden" name="registered_by" value="admin"> <!-- Admin panel -->
+    <input type="hidden" name="registered_by" value="self"> <!-- Website side -->
 
     <div class="row mb-3"> 
        <div class="col-md-6">
@@ -247,7 +248,11 @@ integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxV
   <textarea class="form-control" name="remarks" rows="3" placeholder="Enter your remarks here..."></textarea>
 </div> -->
 
-    <button type="submit" class="btn btn-primary mt-4 w-100">Submit</button>
+    <button type="submit" class="btn mt-4 w-100 mb-4" style="
+    background: linear-gradient(122deg, rgba(0, 146, 69, 1) 0%, rgba(135, 190, 65, 1) 100%);
+    
+    ">Submit</button>
+
   </form>
 </div>
 
@@ -335,7 +340,6 @@ integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxV
   
   document.getElementById('dobField').setAttribute('max', maxDate);
 </script>
-
 
 
 @endsection

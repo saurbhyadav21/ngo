@@ -57,8 +57,8 @@ integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxV
        <label for="Status">Status:<span>*</span></label>
             <select class="form-control" name="Status" required>
                     <option value="" disabled>Select</option>
-                    <option value="Show" >Show</option>
-                    <option value="Hide" >Hide</option>
+                    <option value="1" >Show</option>
+                    <option value="0" >Hide</option>
                 </select>
       </div>
     </div>
