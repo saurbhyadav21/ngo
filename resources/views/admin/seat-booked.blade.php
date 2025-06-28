@@ -53,12 +53,12 @@ div.dataTables_wrapper {
                 
                 <th>mobile</th>
                 <th>City</th>
-                <th>Confirm</th>
+                <th>In Team</th>
                 <!-- <th>Address</th>
                 <th>Pincode</th> -->
                 <th>User ID</th>
                 <th>Booking Date</th>
-                <th>Event Name</th>
+                <th>Event ID</th>
                 <th>Action</th>
             </tr>
         </thead>
@@ -90,12 +90,18 @@ div.dataTables_wrapper {
     { data: 'name', name: 'name' ,
     className: 'text-center'},
  
-    { data: 'mobile', name: 'mobile' },
-    { data: 'city', name: 'city' },
-    { data: 'team_member', name: 'team_member' },
-    { data: 'id_number', name: 'id_number' },
-    { data: 'created_at', name: 'created_at' },
-    { data: 'upcoming_event_id', name: 'upcoming_event_id' },
+    { data: 'mobile', name: 'mobile' ,
+    className: 'text-center'},
+    { data: 'city', name: 'city',
+    className: 'text-center' },
+    { data: 'team_member', name: 'team_member' ,
+    className: 'text-center'},
+    { data: 'id_number', name: 'id_number',
+    className: 'text-center' },
+    { data: 'created_at', name: 'created_at',
+    className: 'text-center' },
+    { data: 'upcoming_event_id', name: 'upcoming_event_id',
+    className: 'text-center' },
     
     { data: 'action', name: 'action', orderable: false, searchable: false ,
     className: 'text-center',}

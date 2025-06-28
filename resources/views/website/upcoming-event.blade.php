@@ -34,10 +34,12 @@
         <div class="description mb-3"><b>Description:</b>{{ $event->description }}</div>
     </div>
 
-    <form method="post" action="book-seat.php">
-        <input type="hidden" name="Title" value="{{ $event->title }}">
-        <button type="submit" class="btn btn-primary mt-3">Book Seat</button>
-    </form>
+{{-- wherever you list the events --}}
+<a href="{{ route('book-seat-website-page', ['id' => $event->id]) }}"
+   class="btn btn-primary mt-3">
+    Book Seat
+</a>
+
 </div>
 
         </div>

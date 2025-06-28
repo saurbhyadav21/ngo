@@ -56,7 +56,7 @@ div.dataTables_wrapper {
                 <th>City</th>
                 <!-- <th>Address</th>
                 <th>Pincode</th> -->
-                <th>Confirm</th>
+                <th>Team Member</th>
                 <th>User ID</th>
                 <th>Donation Details</th>
                 <th>Date</th>
@@ -87,16 +87,27 @@ div.dataTables_wrapper {
                         return meta.row + meta.settings._iDisplayStart + 1;
                     },width: "30px"
     },
-    { data: 'event_id', name: 'event_id' },
+    { data: 'upcoming_event_id', name: 'upcoming_event_id',width: "30px" },
  
     { data: 'name', name: 'name' ,
     className: 'text-center'},
  
-    { data: 'mobile', name: 'mobile' },
-    { data: 'city', name: 'city' },
-    { data: 'team_member', name: 'team_member' },
-    { data: 'id_number', name: 'id_number' },
-    { data: 'created_at', name: 'created_at' },
+    { data: 'mobile', name: 'mobile',
+    className: 'text-center' },
+    { data: 'city', name: 'city',
+    className: 'text-center' },
+    { data: 'team_member', name: 'team_member',
+    className: 'text-center' },
+    { data: 'id_number', name: 'id_number',
+    className: 'text-center' },
+    { data: 'want_to_donate', name: 'want_to_donate',
+    className: 'text-center',
+    render: function(data, type, row) {
+    return `<button class="btn btn-sm btn-info view-want_to_donate w-100" data-want_to_donate="${data.replace(/"/g, '&quot;')}">View</button>`;
+  }
+},
+    { data: 'created_at', name: 'created_at',
+    className: 'text-center' },
     
     { data: 'action', name: 'action', orderable: false, searchable: false ,
     className: 'text-center',}
@@ -126,9 +137,30 @@ div.dataTables_wrapper {
     }
 });
 
+  $(document).on('click', '.view-want_to_donate', function() {
+  var message = $(this).data('want_to_donate');
+  $('#fullMessageContent').html(message);
+  $('#messageModal').modal('show');
+});
+
+    
+
+
 
     </script>
 
 
-
+<div class="modal fade" id="messageModal" tabindex="-1" aria-labelledby="messageModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Full Message</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body" id="fullMessageContent">
+        <!-- Message will appear here -->
+      </div>
+    </div>
+  </div>
+</div>
 @endsection

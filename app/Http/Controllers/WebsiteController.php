@@ -145,4 +145,67 @@ public function addYourProblem(Request $request){
 
 }
 
+public function bookSeatPage($id){
+    return view('website.book-seat',compact('id'));
+}
+
+public function bookSeat(Request $request,$id){
+    $validated=$request->validate([
+        'name'=>'required|string',
+        'phone'=>'required|string',
+        'city'=>'required|string',
+        'in_team'=>'nullable|string',
+        'id_number'=>'nullable|string',
+    ]);
+    $saveBooking=[
+        'name'=>$validated['name'],
+        'mobile'=>$validated['phone'],
+        'city'=>$validated['city'],
+        'team_member'=>$validated['in_team'],
+        'id_number'=>$validated['id_number'],
+        'upcoming_event_id'=>$id,
+        'created_at'=>now(),
+    ];
+
+    DB::table('seat_booked')->insert($saveBooking);
+
+    return redirect()->back()->with('success','Seat Booked Succefully');
+}
+
+public function participatedPage($id){
+    return view('website.participate',compact('id'));
+}
+
+public function addParticipated(Request $request,$id){
+    $validated=$request->validate([
+        'name'=>'required|string',
+        'phone'=>'required|string',
+        'city'=>'required|string',
+        'want_to_donate'=>'required|string',
+        'in_team'=>'nullable|string',
+        'id_number'=>'nullable|string',
+    ]);
+    $saveBooking=[
+        'name'=>$validated['name'],
+        'mobile'=>$validated['phone'],
+        'city'=>$validated['city'],
+        'team_member'=>$validated['in_team'],
+        'id_number'=>$validated['id_number'],
+        'want_to_donate'=>$validated['want_to_donate'],
+        'upcoming_event_id'=>$id,
+        'created_at'=>now(),
+    ];
+
+    DB::table('participation')->insert($saveBooking);
+
+    return redirect()->back()->with('success','Participation Add Succefully');
+}
+
+public function showMembershipInfo()
+{
+    $company = DB::table('company_profile')->first(); // or use Eloquent if applicable
+
+    return view('website.donate-page', compact('company'));
+}
+
 }

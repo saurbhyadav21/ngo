@@ -491,4 +491,13 @@ Route::get('/our-project-website', function () {
 
     return view('website.our-project',compact('projects'));
 });
+
+Route::get('/book-seat-website-page/{id}',[WebsiteController::class, 'bookSeatPage'])->name('book-seat-website-page');
+Route::post('/seat-booked/{event_id}',[WebsiteController::class, 'bookSeat'])->name('seat-booked');
+
+Route::get('/participate-website-page/{id}',[WebsiteController::class, 'participatedPage'])->name('participate-website-page');
+Route::post('/add-participate/{event_id}',[WebsiteController::class, 'addParticipated'])->name('add.participate');
+
+Route::get('/donate-website-page',[WebsiteController::class, 'showMembershipInfo'])->name('donate.php');
+
 require __DIR__.'/auth.php';
