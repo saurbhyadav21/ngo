@@ -500,4 +500,26 @@ Route::post('/add-participate/{event_id}',[WebsiteController::class, 'addPartici
 
 Route::get('/donate-website-page',[WebsiteController::class, 'showMembershipInfo'])->name('donate.php');
 
+
+Route::get('/tnc-website', function () {
+    $companyProfile = DB::table('company_profile')->first();
+
+    return view('website.terms-and-condition', compact('companyProfile'));
+});
+
+Route::get('/privacy-policy-website', function () {
+    $companyProfile = DB::table('company_profile')->first();
+
+    return view('website.privacy-policy', compact('companyProfile'));
+});
+Route::get('/desclaimer-website', function () {
+    $companyProfile = DB::table('company_profile')->first();
+
+    return view('website.desclaimer', compact('companyProfile'));
+});
+Route::get('/refund-policy-website', function () {
+    $companyProfile = DB::table('company_profile')->first();
+
+    return view('website.refund-policy', compact('companyProfile'));
+});
 require __DIR__.'/auth.php';

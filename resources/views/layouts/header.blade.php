@@ -237,31 +237,32 @@
                             <h4>Useful Links</h4>
                             <hr>
                         </div>
+               
                         <ul class="row d-flex justify-content-start">
-                            <li class="col-12 col-lg-6 col-md-6 col-sm-12 text-start"><a href="home.php">Home</a></li>
+                            <li class="col-12 col-lg-6 col-md-6 col-sm-12 text-start"><a href="{{ route('home') }}">Home</a></li>
                             <li class="col-12 col-lg-6 col-md-6 col-sm-12 text-start"><a
-                                    href=" upcoming-event.php">Latest
+                                    href="{{ url('/upcoming-event-website') }}">Latest
                                     Event</a></li>
                             <li class="col-12 col-lg-6 col-md-6 col-sm-12 text-start"><a
-                                    href=" users-apply-form.php">Member
+                                    href="{{ url('/member-apply') }}">Member
                                     Apply</a></li>
                             <li class="col-12 col-lg-6 col-md-6 col-sm-12 text-start"><a
-                                    href=" donation.php">Donation</a></li>
+                                    href="{{ route('donate.php') }}">Donation</a></li>
                             <li class="col-12 col-lg-6 col-md-6 col-sm-12 text-start"><a
-                                    href=" our-team.php">Team&nbsp;Member</a>
+                                    href="{{ url('/team-member-website') }}">Team&nbsp;Member</a>
                             </li>
                             <li class="col-12 col-lg-6 col-md-6 col-sm-12 text-start"><a href=" gallery.php">Gallery</a>
                             </li>
-                            <li class="col-12 col-lg-6 col-md-6 col-sm-12 text-start"><a href=" donars.php">List of
+                            <li class="col-12 col-lg-6 col-md-6 col-sm-12 text-start"><a href="{{ url('/list-of-donors') }}">List of
                                     Donors</a>
                             </li>
                             <li class="col-12 col-lg-6 col-md-6 col-sm-12 text-start"><a
-                                    href=" management-team.php">Management&nbsp;Team</a>
+                                    href=" {{ url('/management-team-website') }}">Management&nbsp;Team</a>
                             </li>
                             <li class="col-12 col-lg-6 col-md-6 col-sm-12 text-start"><a
-                                    href=" contact-us.php">Contact&nbsp;Us</a>
+                                    href="{{ url('/contact-us-website') }}">Contact&nbsp;Us</a>
                             </li>
-                            <li class="col-12 col-lg-6 col-md-6 col-sm-12 text-start"><a href=" id-card-download.php">ID
+                            <li class="col-12 col-lg-6 col-md-6 col-sm-12 text-start"><a href=" {{ url('/id-card') }}">ID
                                     Card
                                     Download</a>
                             </li>
@@ -285,10 +286,10 @@
                         <div class="col-xl-6 col-lg-6  text-center ">
                             <div class="footer-menu ">
                                 <ul class="d-flex gap-3 justify-content-center">
-                                    <li><a href="term_condition.php">Terms &amp; Condition</a></li>
-                                    <li><a href="privacy-policy.php">Privacy Policy</a></li>
-                                    <li><a href="disclaimer.php">Disclaimer</a></li>
-                                    <li><a href="refund_policy.php">Refund Policy</a></li>
+                                    <li><a href="{{ url('/tnc-website') }}">Terms &amp; Condition</a></li>
+                                    <li><a href="{{ url('/privacy-policy-website') }}">Privacy Policy</a></li>
+                                    <li><a href="{{ url('/desclaimer-website') }}">Disclaimer</a></li>
+                                    <li><a href="{{ url('/refund-policy-website') }}">Refund Policy</a></li>
                                 </ul>
                             </div>
                         </div>
