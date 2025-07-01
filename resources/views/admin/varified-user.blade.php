@@ -113,11 +113,12 @@ div.dataTables_wrapper {
 
      $(document).on('click', '.delete', function() {
     var id = $(this).data("id");
+    // console.log(id);
 
     if (confirm("Are you sure you want to delete this User?")) {
         $.ajax({
             url: "/user-delete/" + id,
-            type: "DELETE",
+            type: "POST",
             data: {
                 _token: "{{ csrf_token() }}"
             },
