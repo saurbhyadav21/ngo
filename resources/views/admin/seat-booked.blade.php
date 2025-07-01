@@ -109,26 +109,30 @@ div.dataTables_wrapper {
 
         });
     });
+$(document).on('click', '.delete', function () {
+    const id = $(this).data('id');
+    if (!confirm('Are you sure you want to delete this booking?')) return;
 
-     $(document).on('click', '.delete', function() {
-    var id = $(this).data("id");
+    // Build URL from the named route
+    const routeTemplate = "{{ route('deleteBookSeat', ['id' => '__ID__']) }}";
+    const deleteUrl     = routeTemplate.replace('__ID__', id);
 
-    if (confirm("Are you sure you want to delete this post?")) {
-        $.ajax({
-            url: "/deleteBookSeat/" + id,
-            type: "DELETE",
-            data: {
-                _token: "{{ csrf_token() }}"
-            },
-            success: function(response) {
-                alert(response.success);
-                $('#users-table').DataTable().ajax.reload(); // reload datatable
-            },
-            error: function(xhr) {
-                alert('Error deleting post.');
-            }
-        });
-    }
+    $.ajax({
+        url:  deleteUrl,
+        type: 'POST',                   // POST + _method spoofing
+        data: {
+            _token:  '{{ csrf_token() }}',
+            _method: 'DELETE'           // tell Laravel it’s a DELETE
+        },
+        success: function (resp) {
+            alert(resp.success || 'Deleted successfully!');
+            $('#users-table').DataTable().ajax.reload();   // refresh list
+        },
+        error: function (xhr) {
+            console.error(xhr.responseText);
+            alert('Error deleting booking.');
+        }
+    });
 });
 
 
