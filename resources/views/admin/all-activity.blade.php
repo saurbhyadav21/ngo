@@ -138,7 +138,7 @@ $(document).on('click', '.delete', function () {
     }
 
     // Build URL from the named route:
-    const template = "{{ route('activity.delete', ['id' => '__ID__']) }}";
+    const template = "{{ route('deleteActivity.delete', ['id' => '__ID__']) }}";
     const deleteUrl = template.replace('__ID__', id);
 
     $.ajax({
