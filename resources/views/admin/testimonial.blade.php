@@ -133,26 +133,33 @@ div.dataTables_wrapper {
         });
     });
 
-     $(document).on('click', '.delete', function() {
+ $(document).on('click', '.delete', function () {
     var id = $(this).data("id");
 
-    if (confirm("Are you sure you want to delete this post?")) {
+    if (confirm("Are you sure you want to delete this testimonial?")) {
+        // Laravel route with placeholder for ID
+        var routeTemplate = "{{ route('delete-testimonials', ['id' => '__ID__']) }}";
+        var deleteUrl     = routeTemplate.replace('__ID__', id);
+
         $.ajax({
-            url: "/delete-testimonials/" + id,
-            type: "DELETE",
+            url: deleteUrl,
+            type: "POST",
             data: {
-                _token: "{{ csrf_token() }}"
+                _token: "{{ csrf_token() }}",
+                _method: "DELETE"
             },
-            success: function(response) {
-                alert(response.success);
-                $('#users-table').DataTable().ajax.reload(); // reload datatable
+            success: function (response) {
+                alert(response.success || "Testimonial deleted successfully.");
+                $('#users-table').DataTable().ajax.reload(); // Reload DataTable
             },
-            error: function(xhr) {
-                alert('Error deleting post.');
+            error: function (xhr) {
+                console.error(xhr.responseText);
+                alert("Error deleting testimonial.");
             }
         });
     }
 });
+
 
 $(document).on('click', '.view-message', function() {
   var message = $(this).data('message');
