@@ -125,7 +125,7 @@ div.dataTables_wrapper {
 $(document).on('click', '.delete', function () {
     var id = $(this).data("id");
 
-    if (confirm("Are you sure you want to delete this user?")) {
+    if (confirm("Are you sure you want to delete this coordinator?")) {
         // Laravel route with ID placeholder
         var routeTemplate = "{{ route('deleteCoordinator', ['id' => '__ID__']) }}";
         var deleteUrl     = routeTemplate.replace('__ID__', id);

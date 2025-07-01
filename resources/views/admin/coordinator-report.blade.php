@@ -173,28 +173,31 @@ $('#cancelEditBtn').click(function () {
     $('#editUserSection').slideUp();
     $('#inlineEditFormContent').html('');
 });
-      $(document).on('click', '.delete', function () {
-        if (!confirm('Are you sure you want to delete this user?')) return;
+  $(document).on('click', '.delete', function () {
+    if (!confirm('Are you sure you want to delete this coordinator?')) return;
 
-        let userId = $(this).data('id');
+    let userId = $(this).data('id');
 
-        $.ajax({
-            url: '/user/delete/' + userId,
-            type: 'DELETE',
-            data: {
-                _token: '{{ csrf_token() }}'
-            },
-            success: function (response) {
-                alert('User deleted successfully.');
+    // Generate dynamic Laravel route with ID
+    let routeTemplate = "{{ route('user.delete', ['id' => '__ID__']) }}";
+    let deleteUrl = routeTemplate.replace('__ID__', userId);
 
-                // 🔁 Reload DataTable
-                userTable.ajax.reload(null, false); // Keep current page
-            },
-            error: function (xhr) {
-                console.error(xhr.responseText);
-                alert('Failed to delete user.');
-            }
-        });
+    $.ajax({
+        url: deleteUrl,
+        type: 'POST',
+        data: {
+            _token: '{{ csrf_token() }}',
+            _method: 'DELETE'
+        },
+        success: function (response) {
+            alert(response.success || 'User deleted successfully.');
+            userTable.ajax.reload(null, false); // 🔁 Reload DataTable on same page
+        },
+        error: function (xhr) {
+            console.error(xhr.responseText);
+            alert('Failed to delete user.');
+        }
     });
+});
 </script>
 @endsection

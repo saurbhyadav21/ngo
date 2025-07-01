@@ -193,6 +193,7 @@ Route::get('/doner-print/{id}', [AdminController::class, 'donerPrint'])->name('d
     Route::get('/get-complain-solution', [AdminController::class, 'getComplainSolution'])->name('get-complain-solution');
 Route::get('/complain-solution/edit/{id}', [AdminController::class, 'editComplainSolution']);
 Route::post('/complain-solution/update', [AdminController::class, 'updateComplainSolution'])->name('complain-solution-update');
+    Route::delete('/delete-complain-solution/{id}', [AdminController::class, 'deleteComplain'])->name('complain.delete');
 
 //change password
 Route::get('/change-password', [AdminController::class, 'showChangePasswordForm'])->name('change.password.form');

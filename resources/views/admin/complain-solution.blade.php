@@ -192,23 +192,31 @@
         });
     });
 
-    $(document).on('click', '.delete', function() {
-        var id = $(this).data("id");
-        if (confirm("Are you sure you want to delete this post?")) {
-            $.ajax({
-                url: "/deleteUpcomingEvent/" + id,
-                type: "DELETE",
-                data: { _token: "{{ csrf_token() }}" },
-                success: function(response) {
-                    alert(response.success);
-                    $('#users-table').DataTable().ajax.reload();
-                },
-                error: function() {
-                    alert('Error deleting post.');
-                }
-            });
-        }
-    });
+  $(document).on('click', '.delete', function () {
+    var id = $(this).data("id");
+
+    if (confirm("Are you sure you want to delete this post?")) {
+        // Laravel route with ID placeholder
+        var routeTemplate = "{{ route('complain.delete', ['id' => '__ID__']) }}";
+        var deleteUrl     = routeTemplate.replace('__ID__', id);
+
+        $.ajax({
+            url:  deleteUrl,
+            type: "POST",                 // POST + method spoofing
+            data: {
+                _token: "{{ csrf_token() }}",
+                _method: "DELETE"
+            },
+            success: function (response) {
+                alert(response.success || "Deleted successfully.");
+                $('#users-table').DataTable().ajax.reload(); // Refresh DataTable
+            },
+            error: function () {
+                alert("Error deleting post.");
+            }
+        });
+    }
+});
 
     $(document).on('click', '.view-message', function () {
         $('#messageModalContent').html($(this).data('message'));

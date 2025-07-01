@@ -2629,6 +2629,29 @@ public function updateComplainSolution(Request $request){
     return response()->json(['success' => 'Complaint updated successfully!']);
 }
 
+public function deleteComplain($id){
+        $complain = DB::table('complain_suggestion')->where('id', $id)->first();
+
+    if ($complain) {
+        // Delete uploaded files
+        if (!empty($complain->upload_document_1)) {
+            Storage::disk('public')->delete('uploads/' . $complain->upload_document_1);
+        }
+        if (!empty($complain->upload_document_2)) {
+            Storage::disk('public')->delete('uploads/' . $complain->upload_document_1);
+        }
+        if (!empty($complain->solution_file)) {
+            Storage::disk('public')->delete('uploads/' . $complain->solution_file);
+        }
+
+        DB::table('customers')->where('id', $id)->delete();
+
+        return response()->json(['status' => 'success']);
+    }
+
+    return response()->json(['status' => 'error', 'message' => 'complain not found not found.'], 404);
+} 
+
 
 //change password
 
