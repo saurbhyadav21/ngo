@@ -128,23 +128,32 @@ $(document).ready(function () {
     });
 
     // Delete Code (no change)
-    $(document).on('click', '.delete', function() {
-        var id = $(this).data("id");
-        if (confirm("Are you sure you want to delete this post?")) {
-            $.ajax({
-                url: "/deleteDoner/" + id,
-                type: "DELETE",
-                data: { _token: "{{ csrf_token() }}" },
-                success: function(response) {
-                    alert(response.success);
-                    table.ajax.reload();
-                },
-                error: function(xhr) {
-                    alert('Error deleting post.');
-                }
-            });
+   $(document).on('click', '.delete', function () {
+    var id = $(this).data("id");
+
+    if (!confirm("Are you sure you want to delete this donor?")) return;
+
+    // Use route() with placeholder
+    const routeTemplate = "{{ route('deleteDoner.delete', ['id' => '__ID__']) }}";
+    const deleteUrl = routeTemplate.replace('__ID__', id);
+
+    $.ajax({
+        url: deleteUrl,
+        type: "POST", // Laravel needs POST + _method override for DELETE
+        data: {
+            _token: "{{ csrf_token() }}",
+            _method: "DELETE"
+        },
+        success: function (response) {
+            alert(response.success || "Deleted successfully!");
+            $('#users-table').DataTable().ajax.reload(); // or your table variable
+        },
+        error: function (xhr) {
+            console.error(xhr.responseText);
+            alert("Error deleting donor.");
         }
     });
+});
 
 });
 
