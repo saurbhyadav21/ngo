@@ -122,11 +122,12 @@ div.dataTables_wrapper {
         });
     });
 
-  $(document).on('click', '.delete', function () {
+  
+$(document).on('click', '.delete', function () {
     var id = $(this).data("id");
 
-    if (confirm("Are you sure you want to delete this Management Member?")) {
-        // Generate route URL dynamically
+    if (confirm("Are you sure you want to delete this post?")) {
+        // Laravel route with placeholder for ID
         var routeTemplate = "{{ route('deleteManegement.delete', ['id' => '__ID__']) }}";
         var deleteUrl = routeTemplate.replace('__ID__', id);
 
@@ -139,7 +140,7 @@ div.dataTables_wrapper {
             },
             success: function(response) {
                 alert(response.success || "Deleted successfully.");
-                $('#users-table').DataTable().ajax.reload(); // reload DataTable
+                $('#users-table').DataTable().ajax.reload(); // Reload the datatable
             },
             error: function(xhr) {
                 console.error(xhr.responseText);
@@ -148,6 +149,8 @@ div.dataTables_wrapper {
         });
     }
 });
+
+
     </script>
 
 @endsection
