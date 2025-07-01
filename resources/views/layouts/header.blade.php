@@ -47,6 +47,23 @@
         integrity="sha512-sMXtMNL1zRzolHYKEujM2AqCLUR9F2C4/05cdbxjjLSRvMQIciEPCQZo++nk7go3BtSuK9kfa/s+a4f4i5pLkw=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <!-- Other styles -->
+<!-- <style>
+    :root {
+        --btn-color: {{ $companyDetails->btn_color ?? '#198754' }};
+    }
+
+    .btn-primary,
+    .btn {
+        background-color: var(--btn-color) !important;
+        border-color: var(--btn-color) !important;
+    }
+
+    .btn:hover {
+        opacity: 0.9;
+    }
+</style> -->
+
+
 </head>
 <style>
     /* Reduce logo and font size on small screens */

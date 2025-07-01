@@ -1248,6 +1248,7 @@ public function updateCompanyProfile(Request $request, $id)
         'donation_amount' => 'nullable|string',
         'president_message' => 'nullable|string',
         'slider' => 'nullable|string',
+        'btn_color'=>'nullable|string',
     ]);
 
     // Step 2: Sanitize selected fields

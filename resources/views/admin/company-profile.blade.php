@@ -376,6 +376,21 @@
       
     </div>
 </div>
+<div class="row mb-3">
+
+<div class="col-md-6">
+    <label for="btn_color">Choose Button Color: <span>*</span></label>
+    <select name="btn_color" class="form-control" required>
+        <option value="#198754" {{ $companyDetails->btn_color == '#198754' ? 'selected' : '' }}>Green</option>
+        <option value="#0d6efd" {{ $companyDetails->btn_color == '#0d6efd' ? 'selected' : '' }}>Blue</option>
+        <option value="#dc3545" {{ $companyDetails->btn_color == '#dc3545' ? 'selected' : '' }}>Red</option>
+        <option value="#000000" {{ $companyDetails->btn_color == '#000000' ? 'selected' : '' }}>Black</option>
+        <option value="#6c757d" {{ $companyDetails->btn_color == '#6c757d' ? 'selected' : '' }}>Grey</option>
+        <option value="#ffc107" {{ $companyDetails->btn_color == '#ffc107' ? 'selected' : '' }}>Yellow</option>
+    </select>
+</div>
+</div>
+
 
 
 
