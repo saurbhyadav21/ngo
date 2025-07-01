@@ -130,26 +130,33 @@ div.dataTables_wrapper {
 
         });
     });
+$(document).on('click', '.delete', function () {
+    const id = $(this).data('id');
 
-     $(document).on('click', '.delete', function() {
-    var id = $(this).data("id");
-
-    if (confirm("Are you sure you want to delete this post?")) {
-        $.ajax({
-            url: "/deleteActivity/" + id,
-            type: "DELETE",
-            data: {
-                _token: "{{ csrf_token() }}"
-            },
-            success: function(response) {
-                alert(response.success);
-                $('#users-table').DataTable().ajax.reload(); // reload datatable
-            },
-            error: function(xhr) {
-                alert('Error deleting post.');
-            }
-        });
+    if (!confirm('Are you sure you want to delete this activity?')) {
+        return;
     }
+
+    // Build URL from the named route:
+    const template = "{{ route('activity.delete', ['id' => '__ID__']) }}";
+    const deleteUrl = template.replace('__ID__', id);
+
+    $.ajax({
+        url:   deleteUrl,
+        type:  'POST',              // use POST + _method spoofing
+        data: {
+            _token:  "{{ csrf_token() }}",
+            _method: 'DELETE'       // Laravel will treat it as DELETE
+        },
+        success: function (resp) {
+            alert(resp.success || 'Deleted!');
+            $('#users-table').DataTable().ajax.reload();   // refresh table
+        },
+        error: function (xhr) {
+            console.error(xhr.responseText);
+            alert('Error deleting activity.');
+        }
+    });
 });
    $(document).on('click', '.view-description', function() {
   var message = $(this).data('description');
