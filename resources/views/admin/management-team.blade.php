@@ -125,7 +125,7 @@ div.dataTables_wrapper {
   $(document).on('click', '.delete', function () {
     var id = $(this).data("id");
 
-    if (confirm("Are you sure you want to delete this post?")) {
+    if (confirm("Are you sure you want to delete this Management Member?")) {
         // Generate route URL dynamically
         var routeTemplate = "{{ route('deleteManegement.delete', ['id' => '__ID__']) }}";
         var deleteUrl = routeTemplate.replace('__ID__', id);
