@@ -128,23 +128,28 @@ div.dataTables_wrapper {
 
         });
     });
-
-     $(document).on('click', '.delete', function() {
+$(document).on('click', '.delete', function () {
     var id = $(this).data("id");
 
-    if (confirm("Are you sure you want to delete this post?")) {
+    if (confirm("Are you sure you want to delete this project?")) {
+        // Build Laravel route dynamically (placeholder __ID__)
+        var routeTemplate = "{{ route('deleteObjective', ['id' => '__ID__']) }}";
+        var deleteUrl     = routeTemplate.replace('__ID__', id);
+
         $.ajax({
-            url: "/deleteProject/" + id,
-            type: "DELETE",
+            url: deleteUrl,
+            type: "POST",                 // POST + method spoofing
             data: {
-                _token: "{{ csrf_token() }}"
+                _token: "{{ csrf_token() }}",
+                _method: "DELETE"
             },
-            success: function(response) {
-                alert(response.success);
-                $('#users-table').DataTable().ajax.reload(); // reload datatable
+            success: function (response) {
+                alert(response.success || "Project deleted successfully.");
+                $('#users-table').DataTable().ajax.reload(); // refresh DataTable
             },
-            error: function(xhr) {
-                alert('Error deleting post.');
+            error: function (xhr) {
+                console.error(xhr.responseText);
+                alert("Error deleting project.");
             }
         });
     }
