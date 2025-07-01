@@ -202,7 +202,7 @@
 
         $.ajax({
             url:  deleteUrl,
-            type: "POST",                 
+            type: "POST", 
             data: {
                 _token: "{{ csrf_token() }}",
                 _method: "DELETE"

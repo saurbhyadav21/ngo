@@ -2644,7 +2644,7 @@ public function deleteComplain($id){
             Storage::disk('public')->delete('uploads/' . $complain->solution_file);
         }
 
-        DB::table('customers')->where('id', $id)->delete();
+        DB::table('complain_suggestion')->where('id', $id)->delete();
 
         return response()->json(['status' => 'success']);
     }
