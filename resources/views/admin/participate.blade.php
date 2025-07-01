@@ -119,7 +119,7 @@ div.dataTables_wrapper {
 $(document).on('click', '.delete', function () {
     const id = $(this).data('id');
 
-    if (!confirm("Are you sure you want to delete this post?")) return;
+    if (!confirm("Are you sure you want to delete this participation?")) return;
 
     // Use Laravel route with ID placeholder
     const routeTemplate = "{{ route('delete-participate', ['id' => '__ID__']) }}";

@@ -62,7 +62,7 @@ Route::get('/', [ProfileController::class, 'welcome'])->name('home');
     Route::get('/update-manager/{id}', [AdminController::class, 'updateManager'])->name('update-manager');
     Route::post('/edit-manager-store/{id}', [AdminController::class, 'storeEditManager'])->name('edit-manager-store');
     Route::get('/manager-details/{id}', [AdminController::class, 'managerDetails'])->name('managers-details');
-    Route::delete('/deleteManagers/{id}', [AdminController::class, 'deleteManagers'])->name('deleteManegement.delete');
+    Route::delete('/deleteManagers/{id}', [AdminController::class, 'deleteManagers'])->name('deleteManegers.delete');
 
 
 
