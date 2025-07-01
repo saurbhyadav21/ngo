@@ -124,22 +124,28 @@ div.dataTables_wrapper {
         });
     });
 
-     $(document).on('click', '.delete', function() {
-    var id = $(this).data("id");
+  $(document).on('click', '.delete', function () {
+    var id = $(this).data('id');
 
-    if (confirm("Are you sure you want to delete this post?")) {
+    if (confirm('Are you sure you want to delete this achievement?')) {
+        // Build URL from Laravel named route (placeholder __ID__)
+        var routeTemplate = "{{ route('deleteAchievements', ['id' => '__ID__']) }}";
+        var deleteUrl     = routeTemplate.replace('__ID__', id);
+
         $.ajax({
-            url: "/deleteAchievements/" + id,
-            type: "DELETE",
+            url:  deleteUrl,
+            type: 'POST',               // POST + _method spoofing
             data: {
-                _token: "{{ csrf_token() }}"
+                _token: '{{ csrf_token() }}',
+                _method: 'DELETE'
             },
-            success: function(response) {
-                alert(response.success);
-                $('#users-table').DataTable().ajax.reload(); // reload datatable
+            success: function (response) {
+                alert(response.success || 'Achievement deleted successfully.');
+                $('#users-table').DataTable().ajax.reload(); // refresh table
             },
-            error: function(xhr) {
-                alert('Error deleting post.');
+            error: function (xhr) {
+                console.error(xhr.responseText);
+                alert('Error deleting achievement.');
             }
         });
     }

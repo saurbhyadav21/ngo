@@ -653,7 +653,7 @@ public function achievementsAwards(){
 
 public function getAchievementsAwards(Request $request){
 if ($request->ajax()) {
-            $data = DB::table('achievementsAwards')->get();
+            $data = DB::table('achievementsawards')->get();
             // dd($data);
             return DataTables::of($data)
                 ->addIndexColumn()
@@ -696,7 +696,7 @@ public function storeAchievementsAwards(Request $request){
 
                 }
 
-                DB::table('achievementsAwards')->insert([
+                DB::table('achievementsawards')->insert([
                     'achievementsAwards_image'=>$image_name,
                     'title'=>$request->title,
                     'position'=>$validate['Position'],
@@ -710,7 +710,7 @@ public function storeAchievementsAwards(Request $request){
 
 public function editAchievementsAwards($id){
 
-    $achievementsAwardsId=DB::table('achievementsAwards')->where('id',$id)->first();
+    $achievementsAwardsId=DB::table('achievementsawards')->where('id',$id)->first();
     return view('admin.edit-achievements-awards',compact('achievementsAwardsId'));
 
 }
@@ -748,7 +748,7 @@ public function updateAchievementsAwards( Request $request,$id){
 
 
 
-    DB::table('achievementsAwards')->where('id', $id)->update([
+    DB::table('achievementsawards')->where('id', $id)->update([
         'achievementsAwards_image'=>$image_name,
                     'title'=>$request->title,
                     'position'=>$validate['Position'],
@@ -761,7 +761,7 @@ public function updateAchievementsAwards( Request $request,$id){
 }
 
 public function deleteAchievementsAwards($id){
-    $post = DB::table('achievementsAwards')->where('id', $id)->first();
+    $post = DB::table('achievementsawards')->where('id', $id)->first();
 
     if ($post) {
         // Step 2: Delete image using Laravel Storage
@@ -770,7 +770,7 @@ public function deleteAchievementsAwards($id){
         }
 
         // Step 3: Delete database record
-        DB::table('achievementsAwards')->where('id', $id)->delete();
+        DB::table('achievementsawards')->where('id', $id)->delete();
 
         return response()->json(['success' => 'Certificate and image deleted successfully.']);
     }
