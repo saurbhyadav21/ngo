@@ -1,6 +1,5 @@
 @extends('layouts.header')
 
-@section('title', 'Header List')
 
 @section('content')
   
@@ -24,12 +23,16 @@
   label{
     font-weight: bold;
   }
+  .dot{
+    color: red;
+  }
     
     .product-group { margin-bottom: 10px; }
   </style>
   <h3 class="mb-4 text-center" style="margin-top: 150px; font-weight: 800; color:rgba(0, 146, 69, 1)">Registration Form</h3>
 
-<div class="container" style="margin: 20px 110px 0 110px; border: 1px solid black; padding: 20px;">
+<div class="container" style="margin: 20px 110px 0 110px; border: 1px solid #ccc; padding: 20px; background-color: white; box-shadow: 0 2px 8px rgba(0,0,0,0.1); border-radius: 2%;">
+
 
   @if(session('success'))
   <div class="alert alert-success mt-3">
@@ -42,18 +45,21 @@
 
     <div class="row mb-3"> 
        <div class="col-md-6">
-        <label class="form-label">Name <span>*</span></label>
-        <input type="text" class="form-control" name="name" required>
+        <label class="form-label">Name: <span class="dot">*</span></label>
+        <input type="text" class="form-control" name="name" id="name" required minlength="3">
+          <small id="nameError" class="text-danger d-none">Name must be at least 3 characters long.</small>
       </div>
-      <div class="col-md-6">
-        <label class="form-label">Email:<span>*</span></label>
-        <input type="email" class="form-control" name="email">
-      </div>
+   <div class="col-md-6">
+  <label class="form-label">Email:<span class="dot">*</span></label>
+  <input type="email" class="form-control" name="email" id="email" required>
+  <small id="emailError" class="text-danger d-none">Please enter a valid email address.</small>
+</div>
+
       
     </div>
     <div class="row mb-3">
         <div class="col-md-6">
-                <label class="form-label">Gender <span>*</span></label>
+                <label class="form-label">Gender <span class="dot">*</span></label>
                 <select class="form-control" name="gender" required>
                     <option value="" disabled>Select</option>
                     <option value="Male" >Male</option>
@@ -61,10 +67,12 @@
                     <option value="Other" >Other</option>
                 </select>
             </div>
-      <div class="col-md-6"> 
-        <label class="form-label">Mobile No. <span>*</span></label>
-        <input type="text" class="form-control" name="phone" required>
-      </div>
+    <div class="col-md-6">
+  <label class="form-label">Mobile No. <span class="dot">*</span></label>
+  <input type="text" class="form-control" name="phone" id="phone" required maxlength="10">
+  <small id="phoneError" class="text-danger d-none">Please enter a valid 10-digit mobile number.</small>
+</div>
+
       
     </div>
 
@@ -72,11 +80,11 @@
 
     <div class="row mb-3">    
        <div class="col-md-6">
-  <label class="form-label">Date Of Birth:</label>
+  <label class="form-label">Date Of Birth:<span class="dot">*</span></label>
   <input type="date" class="form-control" name="dob" id="dobField" required>
 </div>
         <div class="col-md-6">
-    <label class="form-label">Blood Group:</label>
+    <label class="form-label">Blood Group:<span class="dot">*</span> </label>
     <select class="form-control" name="blood_group" required>
         <option value="" disabled selected>Select Blood Group</option>
         <option value="A+">A+</option>
@@ -93,72 +101,36 @@
     </div>
 <div class="row mb-3">
   <div class="col-md-6">
-    <label class="form-label">State <span class="text-danger">*</span></label>
-    <select class="form-control" name="state" id="stateDropdown" required>
-      <option value="">Select State</option>
-      <option value="Andhra Pradesh">Andhra Pradesh</option>
-      <option value="Arunachal Pradesh">Arunachal Pradesh</option>
-      <option value="Assam">Assam</option>
-      <option value="Bihar">Bihar</option>
-      <option value="Chhattisgarh">Chhattisgarh</option>
-      <option value="Goa">Goa</option>
-      <option value="Gujarat">Gujarat</option>
-      <option value="Haryana">Haryana</option>
-      <option value="Himachal Pradesh">Himachal Pradesh</option>
-      <option value="Jharkhand">Jharkhand</option>
-      <option value="Karnataka">Karnataka</option>
-      <option value="Kerala">Kerala</option>
-      <option value="Madhya Pradesh">Madhya Pradesh</option>
-      <option value="Maharashtra">Maharashtra</option>
-      <option value="Manipur">Manipur</option>
-      <option value="Meghalaya">Meghalaya</option>
-      <option value="Mizoram">Mizoram</option>
-      <option value="Nagaland">Nagaland</option>
-      <option value="Odisha">Odisha</option>
-      <option value="Punjab">Punjab</option>
-      <option value="Rajasthan">Rajasthan</option>
-      <option value="Sikkim">Sikkim</option>
-      <option value="Tamil Nadu">Tamil Nadu</option>
-      <option value="Telangana">Telangana</option>
-      <option value="Tripura">Tripura</option>
-      <option value="Uttar Pradesh">Uttar Pradesh</option>
-      <option value="Uttarakhand">Uttarakhand</option>
-      <option value="West Bengal">West Bengal</option>
-      <!-- Union Territories -->
-      <option value="Andaman and Nicobar Islands">Andaman and Nicobar Islands</option>
-      <option value="Chandigarh">Chandigarh</option>
-      <option value="Dadra and Nagar Haveli and Daman and Diu">Dadra and Nagar Haveli and Daman and Diu</option>
-      <option value="Delhi">Delhi</option>
-      <option value="Jammu and Kashmir">Jammu and Kashmir</option>
-      <option value="Ladakh">Ladakh</option>
-      <option value="Lakshadweep">Lakshadweep</option>
-      <option value="Puducherry">Puducherry</option>
-    </select>
-  </div>
+  <label for="state">State</label>
+  <select name="state" id="state" class="form-control" required>
+    <option value="">-- Select State --</option>
+    @foreach($states as $state)
+      <option value="{{ $state->id }}">{{ $state->name }}</option>
+    @endforeach
+  </select>
+</div>
 
   <div class="col-md-6">
-    <label class="form-label">City <span class="text-danger">*</span></label>
-    <select class="form-control" name="city" id="cityDropdown" required>
-      <option value="">Select City</option>
-    </select>
+    <label class="form-label">City:<span class="dot">*</span></label>
+    <input type="text" class="form-control" name="city" required>
   </div>
 </div>
 
 <div class="row mb-3"> 
     <div class="col-12">
-        <label class="form-label">Address <span>*</span></label>
+        <label class="form-label">Address <span class="dot">*</span></label>
            <textarea class="form-control" name="address" rows="3" required></textarea>
       </div>
     </div>
 <div class="row mb-3"> 
   <div class="col-md-6">
-    <label class="form-label">Pincode:<span>*</span></label>
+    <label class="form-label">Pincode:<span class="dot">*</span></label>
     <input type="text" class="form-control" name="pincode" required>
   </div>
 
   <div class="col-md-3">
-    <label class="form-label">Relation:<span>*</span></label>
-    <select class="form-control" onchange="sdw()" id="sdwType" name="sdw_type">
+    <label class="form-label">Relation:<span class="dot">*</span></label>
+    <select class="form-control" onchange="sdw()" id="sdwType" name="sdw_type" required>
       <option value="S/O">S/O</option>
       <option value="D/O">D/O</option>
       <option value="W/O">W/O</option>
@@ -167,7 +139,7 @@
 
   <div class="col-md-3">
     <label class="form-label">&nbsp;</label> <!-- for spacing alignment -->
-    <input type="text" name="sdw_name" required class="form-control" id="sdwName" placeholder="Son of">
+    <input type="text" name="sdw_name" required class="form-control" id="sdwName" placeholder="Son of"required>
   </div>
 </div>
 <!-- <div class="row mb-3">
@@ -179,10 +151,12 @@
         <label class="form-label">Photo (Optional):</label>
         <input type="file" class="form-control" name="image">
       </div>
-       <div class="col-md-6">
-        <label class="form-label">Aadhar No.:<span>*</span></label>
-        <input type="text" class="form-control" name="aadhar_number">
-      </div>
+     <div class="col-md-6">
+  <label class="form-label">Aadhar No.:<span class="dot">*</span></label>
+  <input type="text" class="form-control" name="aadhar_number" id="aadhar_number" required maxlength="12">
+  <small id="aadharError" class="text-danger d-none">Please enter a valid 12-digit Aadhar number.</small>
+</div>
+
     
     </div>
     <!-- <div class="row mb-3">
@@ -196,8 +170,8 @@
       </div>
     </div> -->
     <div class="row mb-3">
-<div class="col-md-6 ">
-  <label class="form-label">Profession <span>*</span></label>
+<div class="col-md-12 ">
+  <label class="form-label">Profession <span class="dot">*</span></label>
   <select class="form-control" name="profession" required>
     <option value="" disabled selected>Select Profession</option>
     <option value="Government Employee">Government Employee</option>
@@ -219,7 +193,7 @@
       </div>
 <div class="row mb-3">
   <div class="col-md-6">
-    <label class="form-label">Select Your ID:</label>
+    <label class="form-label">Select Your ID:<span class="dot">*</span></label>
     <select class="form-control" name="id_type" >
       <option value="">-- Select ID Type --</option>
       <option value="Aadhaar Card">Aadhaar Card</option>
@@ -249,7 +223,7 @@
 </div> -->
 
     <button type="submit" class="btn mt-4 w-100 mb-4" style="
-    background: linear-gradient(122deg, rgba(0, 146, 69, 1) 0%, rgba(135, 190, 65, 1) 100%);
+    background: var(--primary-color);
     
     ">Submit</button>
 
@@ -259,61 +233,7 @@
 
 
 <script>
-  const citiesByState = {
-    "Andhra Pradesh": ["Visakhapatnam", "Vijayawada", "Guntur"],
-    "Arunachal Pradesh": ["Itanagar", "Tawang"],
-    "Assam": ["Guwahati", "Silchar"],
-    "Bihar": ["Patna", "Gaya", "Bhagalpur"],
-    "Chhattisgarh": ["Raipur", "Bilaspur", "Durg"],
-    "Goa": ["Panaji", "Margao"],
-    "Gujarat": ["Ahmedabad", "Surat", "Vadodara", "Rajkot"],
-    "Haryana": ["Gurgaon", "Faridabad", "Panchkula"],
-    "Himachal Pradesh": ["Shimla", "Mandi", "Manali"],
-    "Jharkhand": ["Ranchi", "Jamshedpur", "Dhanbad"],
-    "Karnataka": ["Bengaluru", "Mysuru", "Mangalore"],
-    "Kerala": ["Thiruvananthapuram", "Kochi", "Kozhikode"],
-    "Madhya Pradesh": ["Bhopal", "Indore", "Gwalior"],
-    "Maharashtra": ["Mumbai", "Pune", "Nagpur", "Nashik"],
-    "Manipur": ["Imphal"],
-    "Meghalaya": ["Shillong"],
-    "Mizoram": ["Aizawl"],
-    "Nagaland": ["Kohima", "Dimapur"],
-    "Odisha": ["Bhubaneswar", "Cuttack", "Puri"],
-    "Punjab": ["Amritsar", "Ludhiana", "Patiala"],
-    "Rajasthan": ["Jaipur", "Udaipur", "Jodhpur", "Ajmer"],
-    "Sikkim": ["Gangtok"],
-    "Tamil Nadu": ["Chennai", "Coimbatore", "Madurai"],
-    "Telangana": ["Hyderabad", "Warangal", "Nizamabad"],
-    "Tripura": ["Agartala"],
-    "Uttar Pradesh": ["Lucknow", "Kanpur", "Varanasi", "Noida"],
-    "Uttarakhand": ["Dehradun", "Haridwar", "Nainital"],
-    "West Bengal": ["Kolkata", "Howrah", "Asansol"],
 
-    // Union Territories
-    "Andaman and Nicobar Islands": ["Port Blair"],
-    "Chandigarh": ["Chandigarh"],
-    "Dadra and Nagar Haveli and Daman and Diu": ["Daman", "Silvassa"],
-    "Delhi": ["Central Delhi", "East Delhi", "North Delhi", "North East Delhi", "North West Delhi", "South Delhi", "South East Delhi", "South West Delhi", "West Delhi"],
-    "Jammu and Kashmir": ["Srinagar", "Jammu", "Anantnag"],
-    "Ladakh": ["Leh", "Kargil"],
-    "Lakshadweep": ["Kavaratti"],
-    "Puducherry": ["Puducherry", "Karaikal", "Mahe", "Yanam"]
-  };
-
-  document.getElementById("stateDropdown").addEventListener("change", function () {
-    const state = this.value;
-    const cityDropdown = document.getElementById("cityDropdown");
-    cityDropdown.innerHTML = '<option value="">Select City</option>'; // reset
-
-    if (state && citiesByState[state]) {
-      citiesByState[state].forEach(function (city) {
-        const option = document.createElement("option");
-        option.value = city;
-        option.textContent = city;
-        cityDropdown.appendChild(option);
-      });
-    }
-  });
     function sdw() {
     const type = document.getElementById('sdwType').value;
     const input = document.getElementById('sdwName');
@@ -339,7 +259,70 @@
   const maxDate = `${yyyy}-${mm}-${dd}`;
   
   document.getElementById('dobField').setAttribute('max', maxDate);
+
+
+    document.addEventListener("DOMContentLoaded", function () {
+    const emailInput = document.getElementById("email");
+    const emailError = document.getElementById("emailError");
+
+    emailInput.addEventListener("input", function () {
+      const emailValue = emailInput.value;
+      const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+      if (!emailPattern.test(emailValue)) {
+        emailError.classList.remove("d-none");
+      } else {
+        emailError.classList.add("d-none");
+      }
+    });
+  });
+
+    document.addEventListener("DOMContentLoaded", function () {
+    const phoneInput = document.getElementById("phone");
+    const phoneError = document.getElementById("phoneError");
+
+    phoneInput.addEventListener("input", function () {
+      const phoneValue = phoneInput.value;
+      const phonePattern = /^[6-9]\d{9}$/; // Indian numbers starting from 6,7,8,9
+
+      if (!phonePattern.test(phoneValue)) {
+        phoneError.classList.remove("d-none");
+      } else {
+        phoneError.classList.add("d-none");
+      }
+    });
+  });
+
+    document.addEventListener("DOMContentLoaded", function () {
+    const aadharInput = document.getElementById("aadhar_number");
+    const aadharError = document.getElementById("aadharError");
+
+    aadharInput.addEventListener("input", function () {
+      const aadharValue = aadharInput.value;
+      const aadharPattern = /^\d{12}$/; // Exactly 12 digits
+
+      if (!aadharPattern.test(aadharValue)) {
+        aadharError.classList.remove("d-none");
+      } else {
+        aadharError.classList.add("d-none");
+      }
+    });
+  });
+document.addEventListener("DOMContentLoaded", function () {
+    const nameInput = document.getElementById("name");
+    const nameError = document.getElementById("nameError");
+
+    nameInput.addEventListener("input", function () {
+        const nameValue = nameInput.value.trim();
+
+        if (nameValue.length < 3) {
+            nameError.classList.remove("d-none");
+        } else {
+            nameError.classList.add("d-none");
+        }
+    });
+});
 </script>
 
 
-@endsection
+@endsection 

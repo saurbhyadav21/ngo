@@ -40,7 +40,7 @@ div.dataTables_wrapper {
       Verified User List
     </h2>
     <a href="{{ route('add-member') }}" class="btn btn-success" style="padding: 6px 12px; font-size: 14px;">
-        Add Member
+        Add User
     </a>
 </div>
   <div style="overflow-x:auto;">

@@ -7,7 +7,7 @@
     @endphp
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">    
-    <title>@yield('title')</title>
+    <title>{{ $company->brand_name }}</title>
 
  <link rel="stylesheet"
         href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.6.0/css/fontawesome.min.css"
@@ -74,6 +74,22 @@
     background-size: 100%;
 }
 }
+  .goog-te-banner-frame.skiptranslate {
+    display: none !important;
+  }
+  body {
+    top: 0px !important; 
+  }
+  .goog-logo-link {
+    display: none !important;
+  }
+  .goog-te-gadget {
+    color: transparent !important;
+  }
+
+  .footer{
+    background-color: #fff!important;
+  }
 
 </style>
 <body>
@@ -95,7 +111,7 @@
                     <!-- Members Only Box -->
                     <div class="icon-box d-flex align-items-center px-3 py-2 gap-3 d-lg-block d-none"
                         id="Members_Apply">
-                        <a href="#" class="link-box">
+                        <a href="{{ url('/member-apply') }}" class="link-box">
                             <i class="fi fi-rr-fingerprint-identification"></i>
                             <span>Members Apply</span>
                         </a>
@@ -104,7 +120,7 @@
                     <!-- Donate Box -->
                     <div class="icon-box align-items-center justify-content-center px-3 py-2 d-lg-block d-none"
                         id="Donate_Header">
-                        <a href="#" class="link-box gap-2 text-decoration-none text-white">
+                        <a href="{{ url('/donate-website') }}" class="link-box gap-2 text-decoration-none text-white">
                             <i class="fi fi-bs-indian-rupee-sign"></i>
                             <span>Donate</span>
                         </a>
@@ -188,13 +204,17 @@
 
   <!-- <div class="container-fluid mt-4"> -->
          @yield('header')
-        @yield('content')
+        <div style="background-color: #f0f0f0; min-height: 100vh; padding-top: 20px; padding-bottom: 20px;">
+    @yield('content')
+</div>
     <!-- </div>  -->
 
        <!-- Footer -->
+
+
     <div class="footer mb-5">
         <div class="container-lg">
-            <hr class="success" />
+            <hr class="success">
             <div class="row justify-content-center text-center">
                 <div class="col-12 col-lg-4 mb-4">
                     <span><i class="fi fi-rr-land-layer-location"></i> Address - </span>
@@ -298,7 +318,46 @@
             </div>
         </div>
     </div>
+
+    <!-- Google Translate -->
+<div id="google_translate_element" class="translate-fixed"></div>
+
+<style>
+  .translate-fixed {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 9999;
+    background: #fff;
+    padding: 5px 10px;
+    border-radius: 5px;
+    box-shadow: 0 0 8px rgba(0,0,0,0.2);
+  }
+
+  .goog-te-banner-frame.skiptranslate {
+    display: none !important;
+  }
+  body {
+    top: 0px !important; 
+  }
+  .goog-logo-link {
+    display: none !important;
+  }
+</style>
+
+<script type="text/javascript">
+  function googleTranslateElementInit() {
+    new google.translate.TranslateElement(
+      {pageLanguage: 'en', layout: google.translate.TranslateElement.InlineLayout.SIMPLE},
+      'google_translate_element'
+    );
+  }
+</script>
+
+<script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
     </body>
+    
     </html> 
 <!-- Jquery -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>

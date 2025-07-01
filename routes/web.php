@@ -242,11 +242,13 @@ Route::post('/user/status-update', [AdminController::class, 'ajaxUpdateStatus'])
     Route::get('/dashboard', function () {
          $unverifiedCount     =  DB::table('customers')->where('status', 0)->count();
          $verifiedCount       =  DB::table('customers')->where('status', 1)->count();
+         $pendingCount       =  DB::table('customers')->where('status', 2)->count();
          $donationCount       =  DB::table('donation')->count();
          $managementTeamCount =  DB::table('management')->count();
          $testimonialCount    =  DB::table('testimonials')->count();
+         $contactList         =  DB::table('contact_list')->count();
 
-        return view('dashboard', compact('unverifiedCount','verifiedCount','donationCount','managementTeamCount','testimonialCount'));
+        return view('dashboard', compact('unverifiedCount','verifiedCount','donationCount','managementTeamCount','testimonialCount','pendingCount','contactList'));
     })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
@@ -257,12 +259,13 @@ Route::middleware('auth')->group(function () {
 Route::get('/admin/dashboard', function () {
          $unverifiedCount     =  DB::table('customers')->where('status', 0)->count();
          $verifiedCount       =  DB::table('customers')->where('status', 1)->count();
+         $pendingCount       =  DB::table('customers')->where('status', 2)->count();
          $donationCount       =  DB::table('donation')->count();
          $managementTeamCount =  DB::table('management')->count();
          $testimonialCount    =  DB::table('testimonials')->count();
          $contactList         =  DB::table('contact_list')->count();
 
-        return view('dashboard', compact('unverifiedCount','verifiedCount','donationCount','managementTeamCount','testimonialCount','contactList'));
+        return view('dashboard', compact('unverifiedCount','verifiedCount','donationCount','managementTeamCount','testimonialCount','contactList','pendingCount'));
 })->middleware('auth:web');
 
 Route::middleware(['auth:manager'])->group(function () {
@@ -377,7 +380,8 @@ Route::get('/coordinator-user-details/{id}', [CoordinatorController::class, 'use
 
 
 Route::get('/member-apply', function () {
-    return view('website.member-apply');
+    $states=DB::table('states')->get();
+    return view('website.member-apply',compact('states'));
 });
 Route::get('/id-card', function () {
     return view('website.id-card');

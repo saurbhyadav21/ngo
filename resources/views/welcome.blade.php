@@ -23,9 +23,10 @@
 
 </body>
 </html> -->
+
 @extends('layouts.header') {{-- Or your layout file --}}
 
-@section('title', 'Header List')
+@section('title')
 
 @section('content')
 

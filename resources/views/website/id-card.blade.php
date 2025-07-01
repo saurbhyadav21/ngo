@@ -30,12 +30,13 @@
 
 <section class="only-for-top">
 
-    <div class="container mt-5 pt-5">
+    <div class="container mt-5 pt-5" >
           <h3 class="mb-4 text-center" style="margin-top: 80px; font-weight: 800; color:rgba(0, 146, 69, 1)">Print ID Card</h3>
 
 
         <div class="d-flex justify-content-center">
-            <div class="row shadow p-4 p-md-5  text-white rounded-3" id="print-div" style="max-width: 500px; width: 100%;">
+            <div class="row shadow p-4 p-md-5 text-dark rounded-3" id="print-div" style="max-width: 500px; width: 100%; background-color: white; border-radius:2%;">
+
                 <form id="form2" method="post">
                     @csrf <!-- If you're using Laravel -->
 

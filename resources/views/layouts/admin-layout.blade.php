@@ -119,8 +119,8 @@ body {
 <div class="sidebar" id="sidebar" >
     <div class="sidebar-header d-flex align-items-center justify-content-between">
     <div class="d-flex align-items-center">
-        <img src="{{ asset('images/logo.jpg') }}" alt="Logo" style="height:30px; margin-right: 10px;">
-        <h3 style="color: white; margin: 0;">NGO</h3>
+        <!-- <img src="{{ asset('images/logo.jpg') }}" alt="Logo" style="height:30px; margin-right: 10px;"> -->
+        <h3 style="color: white; margin: 0;">Admin</h3>
     </div>
 
     <button class="close-sidebar d-lg-none" onclick="toggleSidebar()">×</button>

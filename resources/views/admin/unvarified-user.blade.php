@@ -34,9 +34,15 @@ div.dataTables_wrapper {
 }
 
     </style>
-    <h2 style="display: inline-block; margin: 10px; font-family: 'Times New Roman', Times, serif;">
+ <div style="display: flex; justify-content: space-between; align-items: center; margin: 10px;">
+
+    <h2 style="display: inline-block; margin: 10px;">
    Unverified User List
 </h2>
+ <a href="{{ route('add-member') }}" class="btn btn-success" style="padding: 6px 12px; font-size: 14px;">
+        Add User
+    </a>
+</div>
 
   <div style="overflow-x:auto;">
     <table id="users-table" class="display nowrap" style="width:100%">

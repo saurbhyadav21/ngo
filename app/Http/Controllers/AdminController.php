@@ -59,6 +59,10 @@ class AdminController extends Controller
         // 'remarks' => 'required|string',
     ]);
 
+    // $name=$request->name;
+
+    // dd($name);
+
     // File uploads
     $profile_image = null;
     $id_image = null;
@@ -786,24 +790,44 @@ public function deleteAchievementsAwards($id){
 
 public function ajaxUpdateStatus(Request $request)
 {
-    // $user = DB::table('customers')-> findOrFail($request->id);
+    // 1.  ── Validate that the record exists ───────────────────────────────
     $user = DB::table('customers')->where('id', $request->id)->first();
 
-if (!$user) {
-    // Handle not found case manually
-    return response()->json(['success' => false, 'message' => 'User not found']);
+    if (! $user) {
+        return response()->json([
+            'success' => false,
+            'message' => 'User not found',
+        ], 404);
+    }
+
+    // 2.  ── Update the status column ─────────────────────────────────────
+    DB::table('customers')
+        ->where('id', $request->id)
+        ->update(['status' => $request->status]);
+
+    // 3.  ── Decide the redirect destination  ─────────────────────────────
+   $redirectRoute = $request->status == 1
+    ? 'varified-user.index'
+    : 'unvarified-user.index';
+
+
+    // 4.  ── AJAX  vs  normal request  ────────────────────────────────────
+    if ($request->ajax()) {
+        // • Front‑end will read redirect_url and navigate there
+        return response()->json([
+            'success'      => true,
+            'message'      => 'Status updated successfully.',
+            'new_status'   => $request->status,
+            'redirect_url' => route($redirectRoute),
+        ]);
+    }
+
+    // • Fallback for non‑AJAX requests
+    return redirect()
+        ->route($redirectRoute)
+        ->with('success', 'Status updated successfully.');
 }
 
-      $updated = DB::table('customers')
-                ->where('id', $request->id)
-                ->update(['status' => $request->status]);
-
-    return response()->json([
-        'success' => true,
-        'message' => 'Status updated successfully.',
-        'new_status' => $request->status
-    ]);
-}
 
 // ----------------------------------------------------------------------------------------------------------------------
     //seatBooked
@@ -1958,7 +1982,7 @@ public function storeDoner(Request $request){
     'created_at' => now()
     
 ]);
-    return redirect()->back()->with('success', 'Doner Created successfully');
+    return redirect()->back()->with('success', 'Donor Created successfully');
 
 }
 
@@ -2227,7 +2251,7 @@ public function deleteUser($id){
 
     DB::table('customers')->where('id',$id)->delete();
 
-    return response()->json(['success'=> 'Customer Deleted Successfully']);
+    return response()->json(['success'=> 'User Deleted Successfully']);
 
 }
 

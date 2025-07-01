@@ -30,7 +30,7 @@ a{
       <div class="card shadow rounded h-100 tall-box">
         <a href="{{ route('varified-user.index') }}">
         <div class="card-body">
-          <h5 class="card-title d-flex justify-content-between align-items-center">Verified Members
+          <h5 class="card-title d-flex justify-content-between align-items-center">Verified Users
             <img src="{{ asset('images/verified.png') }}" alt="View" style="height:40px;">  
           </h5>
             <h6 class="text-primary">Total: {{ $verifiedCount }}</h6>
@@ -43,10 +43,24 @@ a{
       <div class="card shadow rounded h-100 tall-box">
         <a href="{{ route('unvarified-user.index') }}">
         <div class="card-body">
-          <h5 class="card-title d-flex justify-content-between align-items-center">Unverified Members
+          <h5 class="card-title d-flex justify-content-between align-items-center">Unverified Users
             <img src="{{ asset('images/unverified.png') }}" alt="View" style="height:40px;">  
           </h5>
             <h6 class="text-primary">Total: {{ $unverifiedCount }}</h6>
+          <p class="card-text">This is a responsive box number 2  .</p>
+        </div>
+        </a>
+      </div>
+    </div>
+
+      <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
+      <div class="card shadow rounded h-100 tall-box">
+        <a href="{{ route('pending-user.index') }}">
+        <div class="card-body">
+          <h5 class="card-title d-flex justify-content-between align-items-center">Pending Users
+            <img src="{{ asset('images/unverified.png') }}" alt="View" style="height:40px;">  
+          </h5>
+            <h6 class="text-primary">Total: {{ $pendingCount }}</h6>
           <p class="card-text">This is a responsive box number 2  .</p>
         </div>
         </a>
@@ -110,7 +124,7 @@ a{
       </div>
     </div>
 
-    <div class="col-md-6 col-sm-12 col-xs-12 ">
+    <!-- <div class="col-md-6 col-sm-12 col-xs-12 ">
 
         <div class="box3">
                     <h5 style="color:gray;">Latest Activity (3)</h5><hr>
@@ -127,9 +141,8 @@ a{
         </div>
       </div>
 
-    <!-- Repeat for Box 2 to Box 9 -->
   </div>
-</div>
+</div> -->
 
 
 

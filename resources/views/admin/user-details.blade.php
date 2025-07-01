@@ -38,7 +38,13 @@
     <th>Profile Image</th>
     <td>
       @if($data->profile_image)
-    <img src="{{ asset('storage/uploads/' . $data->profile_image) }}" alt="Profile Image" width="100">
+    <img src="{{ asset('storage/uploads/' . $data->profile_image) }}"
+     alt="Profile Image"
+     width="100"
+     class="img-thumbnail"
+     style="cursor: pointer;"
+     onclick="showImage('{{ asset('storage/uploads/' . $data->profile_image) }}')">
+
 @else
     No Image Uploaded
 @endif
@@ -59,7 +65,12 @@
     <th>ID Image</th>
     <td>
         @if($data->id_image)
-            <img src="{{ asset('storage/uploads/' . $data->id_image) }}" alt="ID Image" width="100">
+             <img src="{{ asset('storage/uploads/' . $data->id_image) }}"
+     alt="Profile Image"
+     width="100"
+     class="img-thumbnail"
+     style="cursor: pointer;"
+     onclick="showImage('{{ asset('storage/uploads/' . $data->id_image) }}')">
         @else
             No Image Uploaded
         @endif
@@ -70,7 +81,12 @@
     <th>Other Document</th>
     <td>
         @if($data->other_document)
-            <img src="{{ asset('storage/uploads/' . $data->other_document) }}" alt="Other Document" width="100">
+              <img src="{{ asset('storage/uploads/' . $data->other_document) }}"
+     alt="Profile Image"
+     width="100"
+     class="img-thumbnail"
+     style="cursor: pointer;"
+     onclick="showImage('{{ asset('storage/uploads/' . $data->other_document) }}')">
         @else
             No Image Uploaded
         @endif
@@ -170,7 +186,12 @@
     <th>Profile Image</th>
     <td>
       @if($data->profile_image)
-    <img src="{{ asset('storage/uploads/' . $data->profile_image) }}" alt="Profile Image" width="100">
+    <img src="{{ asset('storage/uploads/' . $data->profile_image) }}"
+     alt="Profile Image"
+     width="100"
+     class="img-thumbnail"
+     style="cursor: pointer;"
+     onclick="showImage('{{ asset('storage/uploads/' . $data->profile_image) }}')">
 @else
     No Image Uploaded
 @endif
@@ -191,7 +212,12 @@
     <th>ID Image</th>
     <td>
         @if($data->id_image)
-            <img src="{{ asset('storage/uploads/' . $data->id_image) }}" alt="ID Image" width="100">
+                  <img src="{{ asset('storage/uploads/' . $data->id_image) }}"
+     alt="Profile Image"
+     width="100"
+     class="img-thumbnail"
+     style="cursor: pointer;"
+     onclick="showImage('{{ asset('storage/uploads/' . $data->id_image) }}')">
         @else
             No Image Uploaded
         @endif
@@ -202,7 +228,12 @@
     <th>Other Document</th>
     <td>
         @if($data->other_document)
-            <img src="{{ asset('storage/uploads/' . $data->other_document) }}" alt="Other Document" width="100">
+        <img src="{{ asset('storage/uploads/' . $data->other_document) }}"
+     alt="Profile Image"
+     width="100"
+     class="img-thumbnail"
+     style="cursor: pointer;"
+     onclick="showImage('{{ asset('storage/uploads/' . $data->other_document) }}')">
         @else
             No Image Uploaded
         @endif
@@ -306,7 +337,12 @@
     <th>Profile Image</th>
     <td>
       @if($data->profile_image)
-    <img src="{{ asset('storage/uploads/' . $data->profile_image) }}" alt="Profile Image" width="100">
+     <img src="{{ asset('storage/uploads/' . $data->profile_image) }}"
+     alt="Profile Image"
+     width="100"
+     class="img-thumbnail"
+     style="cursor: pointer;"
+     onclick="showImage('{{ asset('storage/uploads/' . $data->profile_image) }}')">
 @else
     No Image Uploaded
 @endif
@@ -327,7 +363,12 @@
     <th>ID Image</th>
     <td>
         @if($data->id_image)
-            <img src="{{ asset('storage/uploads/' . $data->id_image) }}" alt="ID Image" width="100">
+    <img src="{{ asset('storage/uploads/' . $data->id_image) }}"
+     alt="Profile Image"
+     width="100"
+     class="img-thumbnail"
+     style="cursor: pointer;"
+     onclick="showImage('{{ asset('storage/uploads/' . $data->id_image) }}')">
         @else
             No Image Uploaded
         @endif
@@ -338,7 +379,12 @@
     <th>Other Document</th>
     <td>
         @if($data->other_document)
-            <img src="{{ asset('storage/uploads/' . $data->other_document) }}" alt="Other Document" width="100">
+             <img src="{{ asset('storage/uploads/' . $data->other_document) }}"
+     alt="Profile Image"
+     width="100"
+     class="img-thumbnail"
+     style="cursor: pointer;"
+     onclick="showImage('{{ asset('storage/uploads/' . $data->other_document) }}')">
         @else
             No Image Uploaded
         @endif
@@ -412,6 +458,23 @@
 </div>
 @endif
 
+<!-- Image Preview Modal -->
+<div class="modal fade" id="imageModal" tabindex="-1" aria-labelledby="imageModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-fullscreen">
+    <div class="modal-content bg-dark">
+      <div class="modal-header border-0">
+        <button type="button" class="btn-close btn-close-white ms-auto" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body d-flex justify-content-center align-items-center" style="min-height: 90vh;">
+        <img id="modalImage" src="" class="img-fluid" style="max-height: 90vh;" alt="Full Image">
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 <script>
@@ -426,37 +489,40 @@
         updateStatus(id, 0);
     });
 
-    function updateStatus(id, status) {
-        $.ajax({
-            url: '{{ route("user.status.update") }}',
-            type: 'POST',
-            data: {
-                id: id,
-                status: status,
-                _token: '{{ csrf_token() }}'
-            },
-            success: function(response) {
-                if (response.success) {
-                    $('#statusText').html(getStatusBadge(response.new_status));
+   function updateStatus(id, status) {
+    $.ajax({
+        url: '{{ route("user.status.update") }}',
+        type: 'POST',
+        data: {
+            id: id,
+            status: status,
+            _token: '{{ csrf_token() }}'
+        },
+        success: function(response) {
+            if (response.success) {
+                $('#statusText').html(getStatusBadge(response.new_status));
 
-                    if (response.new_status == 1) {
-                        $('#verifyBtn').attr('disabled', true);
-                        $('#unverifyBtn').attr('disabled', false);
-                        alert("User has been Verified successfully!");
-                    } else if (response.new_status == 0) {
-                        $('#verifyBtn').attr('disabled', false);
-                        $('#unverifyBtn').attr('disabled', true);
-                        alert("User has been Unverified successfully!");
-                    }
-                } else {
-                    alert("Something went wrong!");
+                if (response.new_status == 1) {
+                    $('#verifyBtn').attr('disabled', true);
+                    $('#unverifyBtn').attr('disabled', false);
+                    alert("User has been Verified successfully!");
+                    window.location.href = response.redirect_url; // ✅ Redirect to verified list
+                } else if (response.new_status == 0) {
+                    $('#verifyBtn').attr('disabled', false);
+                    $('#unverifyBtn').attr('disabled', true);
+                    alert("User has been Unverified successfully!");
+                    window.location.href = response.redirect_url; // ✅ Redirect to unverified list
                 }
-            },
-            error: function() {
-                alert("An error occurred while updating status.");
+            } else {
+                alert("Something went wrong!");
             }
-        });
-    }
+        },
+        error: function() {
+            alert("An error occurred while updating status.");
+        }
+    });
+}
+
 
     function getStatusBadge(status) {
         if (status == 1) {
@@ -470,6 +536,14 @@
         }
     }
 });
+
+
+  function showImage(src) {
+    const modalImage = document.getElementById('modalImage');
+    modalImage.src = src;
+    const imageModal = new bootstrap.Modal(document.getElementById('imageModal'));
+    imageModal.show();
+  }
 
 
 </script>
