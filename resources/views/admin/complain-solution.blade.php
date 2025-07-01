@@ -195,7 +195,7 @@
   $(document).on('click', '.delete', function () {
     var id = $(this).data("id");
 
-    if (confirm("Are you sure you want to delete this post?")) {
+    if (confirm("Are you sure you want to delete this complain?")) {
         // Laravel route with ID placeholder
         var routeTemplate = "{{ route('complain.delete', ['id' => '__ID__']) }}";
         var deleteUrl     = routeTemplate.replace('__ID__', id);
