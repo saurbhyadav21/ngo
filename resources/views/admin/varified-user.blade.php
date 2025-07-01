@@ -111,27 +111,31 @@ div.dataTables_wrapper {
         });
     });
 
-     $(document).on('click', '.delete', function() {
+ $(document).on('click', '.delete', function () {
     var id = $(this).data("id");
-    // console.log(id);
+
+    const deleteRouteTemplate = "{{ route('user-delete.delete', ['id' => '__ID__']) }}";
+    const deleteUrl = deleteRouteTemplate.replace('__ID__', id);
 
     if (confirm("Are you sure you want to delete this User?")) {
         $.ajax({
-            url: "/user-delete/" + id,
-            type: "POST",
+            url: deleteUrl,
+            type: "POST", // DELETE requests must be faked via POST in Laravel
             data: {
-                _token: "{{ csrf_token() }}"
+                _token: "{{ csrf_token() }}",
+                _method: "DELETE"
             },
-            success: function(response) {
+            success: function (response) {
                 alert(response.success);
-                $('#users-table').DataTable().ajax.reload(); // reload datatable
+                $('#users-table').DataTable().ajax.reload(); // Reload DataTable
             },
-            error: function(xhr) {
-                alert('Error deleting post.');
+            error: function (xhr) {
+                alert('Error deleting user.');
             }
         });
     }
 });
+
     </script>
 
 @endsection

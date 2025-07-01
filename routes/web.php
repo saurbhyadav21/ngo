@@ -29,8 +29,6 @@ Route::get('/', [ProfileController::class, 'welcome'])->name('home');
     Route::get('/user-details/{id}', [AdminController::class, 'userDetails'])->name('admin.user.details');
     Route::delete('/user-delete/{id}', [AdminController::class, 'deleteUser'])->name('user-delete.delete');
 
-    Route::post('/user-delete/{id}', [AdminController::class, 'deleteUser'])->name('user-delete.post');
-
      Route::get('/get-pending-user', [AdminController::class, 'getPendingUser'])->name('get-pending-user');
     Route::get('/pending-user', [AdminController::class, 'pending'])->name('pending-user.index');
 
