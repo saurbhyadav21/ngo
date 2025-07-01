@@ -128,23 +128,28 @@ div.dataTables_wrapper {
 
         });
     });
-
-     $(document).on('click', '.delete', function() {
+$(document).on('click', '.delete', function () {
     var id = $(this).data("id");
 
-    if (confirm("Are you sure you want to delete this post?")) {
+    if (confirm("Are you sure you want to delete this About Us post?")) {
+        // Laravel route with ID placeholder
+        var routeTemplate = "{{ route('deleteAboutUsPost', ['id' => '__ID__']) }}";
+        var deleteUrl     = routeTemplate.replace('__ID__', id);
+
         $.ajax({
-            url: "/deleteAboutUsPost/" + id,
-            type: "DELETE",
+            url: deleteUrl,
+            type: "POST",
             data: {
-                _token: "{{ csrf_token() }}"
+                _token: "{{ csrf_token() }}",
+                _method: "DELETE"
             },
             success: function(response) {
-                alert(response.success);
-                $('#users-table').DataTable().ajax.reload(); // reload datatable
+                alert(response.success || "Deleted successfully.");
+                $('#users-table').DataTable().ajax.reload(); // Reload DataTable
             },
             error: function(xhr) {
-                alert('Error deleting post.');
+                console.error(xhr.responseText);
+                alert("Error deleting About Us post.");
             }
         });
     }
