@@ -112,7 +112,7 @@ integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxV
 </div>
 
 
-    <button type="submit" class="btn btn-primary mt-4 w-100 mb-4" style="background: var(--primary-color);">Submit</button>
+    <button type="submit" class="btn btn-primary mt-4 w-100 mb-4" style="background: linear-gradient(122deg, rgba(0, 146, 69, 1) 0%, rgba(135, 190, 65, 1) 100%);">Submit</button>
   </form>
 </div>
 

@@ -36,7 +36,7 @@
 
 {{-- wherever you list the events --}}
 <a href="{{ route('book-seat-website-page', ['id' => $event->id]) }}"
-   class="btn  mt-3" style=" background: var(--primary-color);">
+   class="btn  mt-3" style=" background: linear-gradient(122deg, rgba(0, 146, 69, 1) 0%, rgba(135, 190, 65, 1) 100%);">
     Book Seat
 </a>
 

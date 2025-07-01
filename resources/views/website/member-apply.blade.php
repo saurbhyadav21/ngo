@@ -223,7 +223,7 @@
 </div> -->
 
     <button type="submit" class="btn mt-4 w-100 mb-4" style="
-    background: var(--primary-color);
+    background: linear-gradient(122deg, rgba(0, 146, 69, 1) 0%, rgba(135, 190, 65, 1) 100%);
     
     ">Submit</button>
 
