@@ -116,25 +116,31 @@ div.dataTables_wrapper {
         });
     });
 
-     $(document).on('click', '.delete', function() {
-    var id = $(this).data("id");
+$(document).on('click', '.delete', function () {
+    const id = $(this).data('id');
 
-    if (confirm("Are you sure you want to delete this post?")) {
-        $.ajax({
-            url: "/delete-participate/" + id,
-            type: "DELETE",
-            data: {
-                _token: "{{ csrf_token() }}"
-            },
-            success: function(response) {
-                alert(response.success);
-                $('#users-table').DataTable().ajax.reload(); // reload datatable
-            },
-            error: function(xhr) {
-                alert('Error deleting post.');
-            }
-        });
-    }
+    if (!confirm("Are you sure you want to delete this post?")) return;
+
+    // Use Laravel route with ID placeholder
+    const routeTemplate = "{{ route('delete-participate', ['id' => '__ID__']) }}";
+    const deleteUrl     = routeTemplate.replace('__ID__', id);
+
+    $.ajax({
+        url: deleteUrl,
+        type: 'POST',
+        data: {
+            _token: '{{ csrf_token() }}',
+            _method: 'DELETE'
+        },
+        success: function (response) {
+            alert(response.success || 'Deleted successfully.');
+            $('#users-table').DataTable().ajax.reload(); // refresh the table
+        },
+        error: function (xhr) {
+            console.error(xhr.responseText);
+            alert('Error deleting post.');
+        }
+    });
 });
 
   $(document).on('click', '.view-want_to_donate', function() {
